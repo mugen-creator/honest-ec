@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, Shield, Truck, RotateCcw } from "lucide-react";
-import { getProductById, mockProducts } from "@/lib/mock-data";
+import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { conditionLabels } from "@/types/product";
 import { ProductImageGallery } from "@/components/product/product-image-gallery";
@@ -12,9 +12,13 @@ interface ProductDetailPageProps {
   params: Promise<{ id: string }>;
 }
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: ProductDetailPageProps) {
   const { id } = await params;
-  const product = getProductById(id);
+  const product = await prisma.product.findUnique({
+    where: { id },
+  });
 
   if (!product) {
     return { title: "商品が見つかりません" };
@@ -28,21 +32,34 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { id } = await params;
-  const product = getProductById(id);
+
+  const product = await prisma.product.findUnique({
+    where: { id },
+    include: {
+      brand: true,
+      category: true,
+      images: { orderBy: { sortOrder: "asc" } },
+    },
+  });
 
   if (!product || !product.isPublished) {
     notFound();
   }
 
   // 関連商品（同じカテゴリの他の商品）
-  const relatedProducts = mockProducts
-    .filter(
-      (p) =>
-        p.id !== product.id &&
-        p.category.id === product.category.id &&
-        p.isPublished
-    )
-    .slice(0, 4);
+  const relatedProducts = await prisma.product.findMany({
+    where: {
+      id: { not: product.id },
+      categoryId: product.categoryId,
+      isPublished: true,
+    },
+    take: 4,
+    include: {
+      brand: true,
+      category: true,
+      images: { orderBy: { sortOrder: "asc" } },
+    },
+  });
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12">
@@ -92,7 +109,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           {/* Condition */}
           <div className="flex items-center gap-4 mb-6 pb-6 border-b">
             <span className="text-sm text-gray-500">商品状態</span>
-            <span className="font-medium">{conditionLabels[product.condition]}</span>
+            <span className="font-medium">{conditionLabels[product.condition] || product.condition}</span>
           </div>
 
           {/* Add to Cart */}
@@ -134,7 +151,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <dd>{product.category.name}</dd>
 
               <dt className="text-gray-500">状態</dt>
-              <dd>{conditionLabels[product.condition]}</dd>
+              <dd>{conditionLabels[product.condition] || product.condition}</dd>
 
               {product.serialNumber && (
                 <>

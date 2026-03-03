@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { mockProducts, categories, brands } from "@/lib/mock-data";
+import { prisma } from "@/lib/prisma";
 import { ProductGrid } from "@/components/product/product-grid";
 import { ProductFilters } from "@/components/product/product-filters";
 
@@ -19,57 +19,76 @@ export const metadata = {
   description: "Honest-Maisonの商品一覧ページです。高級時計、ブランドバッグ、アクセサリーを取り揃えております。",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
   const params = await searchParams;
 
-  // フィルタリング処理
-  let filteredProducts = mockProducts.filter((p) => p.isPublished);
+  // カテゴリとブランドを取得
+  const [categories, brands] = await Promise.all([
+    prisma.category.findMany({ orderBy: { name: "asc" } }),
+    prisma.brand.findMany({ orderBy: { name: "asc" } }),
+  ]);
+
+  // フィルター条件を構築
+  const where: Record<string, unknown> = {
+    isPublished: true,
+  };
 
   if (params.category) {
-    filteredProducts = filteredProducts.filter(
-      (p) => p.category.slug === params.category
-    );
+    const category = categories.find((c) => c.slug === params.category);
+    if (category) {
+      where.categoryId = category.id;
+    }
   }
 
   if (params.brand) {
-    filteredProducts = filteredProducts.filter(
-      (p) => p.brand.slug === params.brand
-    );
+    const brand = brands.find((b) => b.slug === params.brand);
+    if (brand) {
+      where.brandId = brand.id;
+    }
   }
 
-  if (params.minPrice) {
-    const minPrice = parseInt(params.minPrice);
-    filteredProducts = filteredProducts.filter((p) => p.price >= minPrice);
-  }
-
-  if (params.maxPrice) {
-    const maxPrice = parseInt(params.maxPrice);
-    filteredProducts = filteredProducts.filter((p) => p.price <= maxPrice);
+  if (params.minPrice || params.maxPrice) {
+    where.price = {};
+    if (params.minPrice) {
+      (where.price as Record<string, number>).gte = parseInt(params.minPrice);
+    }
+    if (params.maxPrice) {
+      (where.price as Record<string, number>).lte = parseInt(params.maxPrice);
+    }
   }
 
   if (params.condition) {
     const conditions = params.condition.split(",");
-    filteredProducts = filteredProducts.filter((p) =>
-      conditions.includes(p.condition)
-    );
+    where.condition = { in: conditions };
   }
 
-  // ソート処理
+  // ソート条件
+  let orderBy: Record<string, string> = { createdAt: "desc" };
   switch (params.sort) {
     case "price-asc":
-      filteredProducts.sort((a, b) => a.price - b.price);
+      orderBy = { price: "asc" };
       break;
     case "price-desc":
-      filteredProducts.sort((a, b) => b.price - a.price);
+      orderBy = { price: "desc" };
       break;
     case "newest":
     default:
-      filteredProducts.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
+      orderBy = { createdAt: "desc" };
       break;
   }
+
+  // 商品を取得
+  const products = await prisma.product.findMany({
+    where,
+    orderBy,
+    include: {
+      brand: true,
+      category: true,
+      images: { orderBy: { sortOrder: "asc" } },
+    },
+  });
 
   const categoryName = params.category
     ? categories.find((c) => c.slug === params.category)?.name
@@ -87,7 +106,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       <div className="mb-8">
         <h1 className="text-2xl lg:text-3xl font-bold mb-2">{pageTitle}</h1>
         <p className="text-gray-600">
-          {filteredProducts.length}件の商品が見つかりました
+          {products.length}件の商品が見つかりました
         </p>
       </div>
 
@@ -107,7 +126,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
         {/* Products Grid */}
         <div className="flex-1">
-          <ProductGrid products={filteredProducts} />
+          <ProductGrid products={products} />
         </div>
       </div>
     </div>

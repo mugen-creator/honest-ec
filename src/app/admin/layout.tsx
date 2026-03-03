@@ -24,14 +24,15 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // TODO: 本番では認証を有効化する
-  // const session = await getServerSession(authOptions);
-  // if (!session || session.user.role !== "ADMIN") {
-  //   redirect("/login?callbackUrl=/admin");
-  // }
+  const session = await getServerSession(authOptions);
 
-  // 開発用のダミーセッション
-  const session = { user: { email: "admin@example.com" } };
+  if (!session) {
+    redirect("/login?callbackUrl=/admin");
+  }
+
+  if (session.user.role !== "ADMIN") {
+    redirect("/?error=unauthorized");
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -73,15 +74,13 @@ export default async function AdminLayout({
             </ul>
 
             <div className="border-t mt-4 pt-4">
-              <form action="/api/auth/signout" method="POST">
-                <button
-                  type="submit"
-                  className="flex items-center gap-3 px-4 py-3 text-sm text-gray-500 hover:text-black w-full"
-                >
-                  <LogOut className="w-5 h-5" />
-                  ログアウト
-                </button>
-              </form>
+              <Link
+                href="/api/auth/signout"
+                className="flex items-center gap-3 px-4 py-3 text-sm text-gray-500 hover:text-black w-full"
+              >
+                <LogOut className="w-5 h-5" />
+                ログアウト
+              </Link>
             </div>
           </nav>
         </aside>
