@@ -7,23 +7,44 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function AdminMembersPage() {
-  const members = await prisma.user.findMany({
-    orderBy: { createdAt: "desc" },
-    include: {
-      _count: {
-        select: { orders: true },
+  let members: Array<{
+    id: string;
+    email: string;
+    name: string | null;
+    role: string;
+    createdAt: Date;
+    _count: { orders: number };
+  }> = [];
+  let error = null;
+
+  try {
+    members = await prisma.user.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        _count: {
+          select: { orders: true },
+        },
       },
-    },
-  });
+    });
+  } catch (e) {
+    error = e instanceof Error ? e.message : "Unknown error";
+    console.error("Members error:", e);
+  }
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">会員管理</h1>
 
+      {error && (
+        <div className="bg-red-100 text-red-700 p-4 rounded mb-6">
+          エラー: {error}
+        </div>
+      )}
+
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
         {members.length === 0 ? (
           <div className="p-8 text-center text-gray-500">
-            会員がありません
+            {error ? "データを取得できませんでした" : "会員がありません"}
           </div>
         ) : (
           <table className="w-full">
