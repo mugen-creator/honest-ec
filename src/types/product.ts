@@ -22,14 +22,14 @@ export interface Product {
     name: string;
     slug: string;
   };
-  condition: ProductCondition;
+  condition: ProductCondition | string;
   serialNumber: string | null;
   certificate: string | null;
   stock: number;
   isPublished: boolean;
   images: ProductImage[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt: string | Date;
+  updatedAt: string | Date;
 }
 
 export interface Category {
@@ -44,7 +44,7 @@ export interface Brand {
   slug: string;
 }
 
-export const conditionLabels: Record<ProductCondition, string> = {
+export const conditionLabels: Record<string, string> = {
   NEW: "新品",
   S: "S (未使用に近い)",
   A: "A (目立った傷や汚れなし)",
@@ -52,7 +52,7 @@ export const conditionLabels: Record<ProductCondition, string> = {
   C: "C (傷や汚れあり)",
 };
 
-export const conditionColors: Record<ProductCondition, string> = {
+export const conditionColors: Record<string, string> = {
   NEW: "condition-new",
   S: "condition-s",
   A: "condition-a",
