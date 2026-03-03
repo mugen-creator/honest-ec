@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
+export const dynamic = "force-dynamic";
+
 const registerSchema = z.object({
   email: z.string().email("有効なメールアドレスを入力してください"),
   password: z
