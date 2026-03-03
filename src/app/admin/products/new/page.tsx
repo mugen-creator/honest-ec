@@ -21,8 +21,8 @@ const productSchema = z.object({
   condition: z.string().min(1, "商品状態を選択してください"),
   serialNumber: z.string().optional(),
   certificate: z.string().optional(),
-  stock: z.string().default("1"),
-  isPublished: z.boolean().default(false),
+  stock: z.string(),
+  isPublished: z.boolean(),
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
