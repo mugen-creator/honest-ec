@@ -1,10 +1,20 @@
+import { prisma } from "@/lib/prisma";
+
 export const metadata = {
   title: "会員管理",
 };
 
-export default function AdminMembersPage() {
-  // TODO: 実際の会員データを取得
-  const members: unknown[] = [];
+export const dynamic = "force-dynamic";
+
+export default async function AdminMembersPage() {
+  const members = await prisma.user.findMany({
+    orderBy: { createdAt: "desc" },
+    include: {
+      _count: {
+        select: { orders: true },
+      },
+    },
+  });
 
   return (
     <div>
@@ -31,13 +41,41 @@ export default function AdminMembersPage() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   注文回数
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                  操作
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  権限
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {/* Member rows will be rendered here */}
+              {members.map((member) => (
+                <tr key={member.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="font-medium text-gray-900">
+                      {member.name || "未設定"}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-600">
+                    {member.email}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-600">
+                    {new Date(member.createdAt).toLocaleDateString("ja-JP")}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-600">
+                    {member._count.orders}回
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span
+                      className={`px-2 py-1 text-xs rounded-full ${
+                        member.role === "ADMIN"
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-gray-100 text-gray-800"
+                      }`}
+                    >
+                      {member.role === "ADMIN" ? "管理者" : "会員"}
+                    </span>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         )}
