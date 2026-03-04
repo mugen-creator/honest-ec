@@ -22,23 +22,23 @@ export function Footer() {
             <h3 className="text-sm font-bold uppercase tracking-wider mb-4">Shop</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/products" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  全商品
+                <Link href="/products?sort=newest" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  新着商品
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=watches" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  時計
+                <Link href="/ranking" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  人気ランキング
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=bags" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  バッグ
+                <Link href="/brands" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  ブランド一覧
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=accessories" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  アクセサリー
+                <Link href="/categories" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  カテゴリー一覧
                 </Link>
               </li>
             </ul>
