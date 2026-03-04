@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, Plus, X } from "lucide-react";
+import Image from "next/image";
+import { ChevronLeft, Upload, X, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { categories, brands } from "@/lib/mock-data";
 
 const productSchema = z.object({
   name: z.string().min(1, "商品名を入力してください"),
@@ -36,10 +36,23 @@ const conditionOptions = [
   { value: "C", label: "C (傷や汚れあり)" },
 ];
 
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Brand {
+  id: string;
+  name: string;
+}
+
 export default function NewProductPage() {
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const [newImageUrl, setNewImageUrl] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
 
   const {
     register,
@@ -53,24 +66,81 @@ export default function NewProductPage() {
     },
   });
 
-  const addImageUrl = () => {
-    if (newImageUrl && !imageUrls.includes(newImageUrl)) {
-      setImageUrls([...imageUrls, newImageUrl]);
-      setNewImageUrl("");
+  useEffect(() => {
+    // カテゴリとブランドを取得
+    fetch("/api/admin/categories")
+      .then((res) => res.json())
+      .then((data) => setCategories(data.categories || []))
+      .catch(console.error);
+
+    fetch("/api/admin/brands")
+      .then((res) => res.json())
+      .then((data) => setBrands(data.brands || []))
+      .catch(console.error);
+  }, []);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setIsUploading(true);
+    try {
+      for (const file of Array.from(files)) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setImageUrls((prev) => [...prev, data.url]);
+        } else {
+          const error = await response.json();
+          alert(error.error || "アップロードに失敗しました");
+        }
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("アップロードに失敗しました");
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   };
 
-  const removeImageUrl = (url: string) => {
+  const removeImage = (url: string) => {
     setImageUrls(imageUrls.filter((u) => u !== url));
   };
 
   const onSubmit = async (data: ProductFormData) => {
-    // TODO: 実際のAPI呼び出し
-    console.log("Product data:", { ...data, images: imageUrls });
+    try {
+      const response = await fetch("/api/admin/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          price: parseInt(data.price),
+          stock: parseInt(data.stock),
+          images: imageUrls,
+        }),
+      });
 
-    // 仮の処理：成功メッセージを表示して一覧に戻る
-    alert("商品を登録しました（デモ）");
-    router.push("/admin/products");
+      if (response.ok) {
+        alert("商品を登録しました");
+        router.push("/admin/products");
+      } else {
+        const error = await response.json();
+        alert(error.error || "商品の登録に失敗しました");
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      alert("商品の登録に失敗しました");
+    }
   };
 
   return (
@@ -191,30 +261,53 @@ export default function NewProductPage() {
         <div className="bg-white rounded-lg shadow-sm p-6">
           <h2 className="font-bold mb-4">商品画像</h2>
 
-          <div className="flex gap-2 mb-4">
-            <Input
-              id="newImageUrl"
-              placeholder="画像URLを入力"
-              value={newImageUrl}
-              onChange={(e) => setNewImageUrl(e.target.value)}
+          <div className="mb-4">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              multiple
+              onChange={handleFileUpload}
+              className="hidden"
+              id="image-upload"
             />
-            <Button type="button" onClick={addImageUrl} variant="outline">
-              <Plus className="w-4 h-4" />
-            </Button>
+            <label
+              htmlFor="image-upload"
+              className={`flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 transition-colors ${
+                isUploading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              {isUploading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  アップロード中...
+                </>
+              ) : (
+                <>
+                  <Upload className="w-5 h-5" />
+                  画像をアップロード
+                </>
+              )}
+            </label>
+            <p className="text-xs text-gray-500 mt-2">
+              JPEG, PNG, WebP, GIF形式（5MB以下）
+            </p>
           </div>
 
           {imageUrls.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {imageUrls.map((url, index) => (
-                <div key={index} className="relative group">
-                  <img
+                <div key={index} className="relative group aspect-square">
+                  <Image
                     src={url}
                     alt={`商品画像 ${index + 1}`}
-                    className="w-full aspect-square object-cover border"
+                    fill
+                    className="object-cover border rounded"
+                    sizes="(max-width: 768px) 50vw, 25vw"
                   />
                   <button
                     type="button"
-                    onClick={() => removeImageUrl(url)}
+                    onClick={() => removeImage(url)}
                     className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   >
                     <X className="w-4 h-4" />
@@ -223,10 +316,6 @@ export default function NewProductPage() {
               ))}
             </div>
           )}
-
-          <p className="text-xs text-gray-500 mt-2">
-            ※ 画像URLを入力して追加してください。本番環境では画像アップロード機能を使用します。
-          </p>
         </div>
 
         {/* 公開設定 */}
