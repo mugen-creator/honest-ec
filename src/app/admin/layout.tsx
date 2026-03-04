@@ -28,17 +28,15 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // TODO: 本番では認証を有効化する
-  // const session = await getServerSession(authOptions);
-  // if (!session) {
-  //   redirect("/login?callbackUrl=/admin");
-  // }
-  // if (session.user.role !== "ADMIN") {
-  //   redirect("/?error=unauthorized");
-  // }
+  const session = await getServerSession(authOptions);
 
-  // 開発用のダミーセッション
-  const session = { user: { email: "admin@example.com", role: "ADMIN" } };
+  if (!session) {
+    redirect("/login?callbackUrl=/admin");
+  }
+
+  if (session.user.role !== "ADMIN") {
+    redirect("/?error=unauthorized");
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
