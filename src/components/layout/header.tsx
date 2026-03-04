@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X, Search, Heart, User } from "lucide-react";
 import { CartIcon } from "./cart-icon";
+import { SearchModal } from "./search-modal";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
@@ -29,7 +31,7 @@ export function Header() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <h1 className="text-xl lg:text-2xl font-bold tracking-wider">
+            <h1 className="font-display text-xl lg:text-2xl font-semibold tracking-wide">
               <span className="text-black">Honest</span>
               <span className="text-amber-600">-</span>
               <span className="text-black">Maison</span>
@@ -38,23 +40,27 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            <Link href="/products?sort=newest" className="text-sm font-medium hover:text-amber-600 transition-colors">
+            <Link href="/products?sort=newest" className="font-display text-sm tracking-wide hover:text-amber-600 transition-colors">
               NEW ARRIVALS
             </Link>
-            <Link href="/ranking" className="text-sm font-medium hover:text-amber-600 transition-colors">
+            <Link href="/ranking" className="font-display text-sm tracking-wide hover:text-amber-600 transition-colors">
               RANKING
             </Link>
-            <Link href="/brands" className="text-sm font-medium hover:text-amber-600 transition-colors">
+            <Link href="/brands" className="font-display text-sm tracking-wide hover:text-amber-600 transition-colors">
               BRANDS
             </Link>
-            <Link href="/categories" className="text-sm font-medium hover:text-amber-600 transition-colors">
+            <Link href="/categories" className="font-display text-sm tracking-wide hover:text-amber-600 transition-colors">
               CATEGORY
             </Link>
           </nav>
 
           {/* Icons */}
-          <div className="flex items-center gap-4">
-            <button className="p-2 hover:text-amber-600 transition-colors" aria-label="検索">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 hover:text-amber-600 transition-colors"
+              aria-label="検索"
+            >
               <Search className="w-5 h-5" />
             </button>
             <Link href="/mypage/favorites" className="p-2 hover:text-amber-600 transition-colors" aria-label="お気に入り">
@@ -69,40 +75,61 @@ export function Header() {
       </div>
 
       {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-200">
-          <nav className="flex flex-col py-4">
+      <div
+        className={`lg:hidden bg-white border-t border-gray-200 overflow-hidden transition-all duration-300 ease-out ${
+          isMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <nav className="flex flex-col py-2">
+          <Link
+            href="/products?sort=newest"
+            className="px-4 py-3 text-sm font-medium hover:bg-gray-50 active:bg-gray-100"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            NEW ARRIVALS
+          </Link>
+          <Link
+            href="/ranking"
+            className="px-4 py-3 text-sm font-medium hover:bg-gray-50 active:bg-gray-100"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            RANKING
+          </Link>
+          <Link
+            href="/brands"
+            className="px-4 py-3 text-sm font-medium hover:bg-gray-50 active:bg-gray-100"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            BRANDS
+          </Link>
+          <Link
+            href="/categories"
+            className="px-4 py-3 text-sm font-medium hover:bg-gray-50 active:bg-gray-100"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            CATEGORY
+          </Link>
+          <div className="border-t border-gray-100 mt-2 pt-2 px-4">
             <Link
-              href="/products?sort=newest"
-              className="px-4 py-3 text-sm font-medium hover:bg-gray-50"
+              href="/mypage"
+              className="block py-3 text-sm text-gray-600 hover:text-black"
               onClick={() => setIsMenuOpen(false)}
             >
-              NEW ARRIVALS
+              マイページ
             </Link>
             <Link
-              href="/ranking"
-              className="px-4 py-3 text-sm font-medium hover:bg-gray-50"
+              href="/guide"
+              className="block py-3 text-sm text-gray-600 hover:text-black"
               onClick={() => setIsMenuOpen(false)}
             >
-              RANKING
+              ご利用ガイド
             </Link>
-            <Link
-              href="/brands"
-              className="px-4 py-3 text-sm font-medium hover:bg-gray-50"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              BRANDS
-            </Link>
-            <Link
-              href="/categories"
-              className="px-4 py-3 text-sm font-medium hover:bg-gray-50"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              CATEGORY
-            </Link>
-          </nav>
-        </div>
-      )}
+          </div>
+        </nav>
+      </div>
+
+      {/* Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 }

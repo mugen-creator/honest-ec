@@ -8,6 +8,11 @@ import { ProductImageGallery } from "@/components/product/product-image-gallery"
 import { AddToCartButton } from "@/components/product/add-to-cart-button";
 import { FavoriteButton } from "@/components/product/favorite-button";
 import { ProductGrid } from "@/components/product/product-grid";
+import { TrackView } from "@/components/product/track-view";
+import { RecentlyViewed } from "@/components/product/recently-viewed";
+import { ShareButtons } from "@/components/product/share-buttons";
+import { RestockNotifyForm } from "@/components/product/restock-notify-form";
+import { ProductReviews } from "@/components/product/product-reviews";
 
 interface ProductDetailPageProps {
   params: Promise<{ id: string }>;
@@ -65,23 +70,23 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8">
-        <Link href="/" className="hover:text-black">
+      <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500 mb-6 sm:mb-8 overflow-x-auto whitespace-nowrap pb-2">
+        <Link href="/" className="hover:text-black flex-shrink-0">
           ホーム
         </Link>
-        <ChevronRight className="w-4 h-4" />
-        <Link href="/products" className="hover:text-black">
+        <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+        <Link href="/products" className="hover:text-black flex-shrink-0 hidden sm:inline">
           商品一覧
         </Link>
-        <ChevronRight className="w-4 h-4" />
+        <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 hidden sm:inline" />
         <Link
           href={`/products?category=${product.category.slug}`}
-          className="hover:text-black"
+          className="hover:text-black flex-shrink-0"
         >
           {product.category.name}
         </Link>
-        <ChevronRight className="w-4 h-4" />
-        <span className="text-black truncate max-w-[200px]">{product.name}</span>
+        <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+        <span className="text-black truncate max-w-[150px] sm:max-w-[250px]">{product.name}</span>
       </nav>
 
       {/* Product Detail */}
@@ -100,7 +105,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </Link>
 
           {/* Name */}
-          <h1 className="text-2xl lg:text-3xl font-bold mt-2 mb-4">
+          <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium mt-2 mb-4 tracking-wide leading-relaxed">
             {product.name}
           </h1>
 
@@ -118,8 +123,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {product.stock > 0 ? (
               <AddToCartButton product={product} />
             ) : (
-              <div className="text-center py-4 bg-gray-100">
-                <span className="text-gray-500 font-medium">SOLD OUT</span>
+              <div className="space-y-4">
+                <div className="text-center py-4 bg-gray-100">
+                  <span className="text-gray-500 font-medium">SOLD OUT</span>
+                </div>
+                <RestockNotifyForm productId={product.id} productName={product.name} />
               </div>
             )}
             <div className="flex justify-center">
@@ -197,16 +205,30 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               お問い合わせフォームへ →
             </Link>
           </div>
+
+          {/* Share */}
+          <div className="mt-6 pt-6 border-t">
+            <ShareButtons productName={product.name} productId={product.id} />
+          </div>
+
+          {/* Reviews */}
+          <ProductReviews productId={product.id} />
         </div>
       </div>
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
         <section className="mt-16 lg:mt-24">
-          <h2 className="text-xl lg:text-2xl font-bold mb-8">関連商品</h2>
+          <h2 className="font-serif-jp text-xl lg:text-2xl font-medium mb-8 tracking-wide">関連商品</h2>
           <ProductGrid products={relatedProducts} />
         </section>
       )}
+
+      {/* Recently Viewed */}
+      <RecentlyViewed excludeId={product.id} />
+
+      {/* Track View */}
+      <TrackView product={product} />
     </div>
   );
 }

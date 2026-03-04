@@ -13,7 +13,7 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold mb-4">ショッピングカート</h1>
+        <h1 className="font-serif-jp text-2xl font-medium tracking-wide mb-4">ショッピングカート</h1>
         <p className="text-gray-500 mb-8">カートに商品がありません</p>
         <Link href="/products">
           <Button>商品を見る</Button>
@@ -24,7 +24,7 @@ export default function CartPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 lg:py-12">
-      <h1 className="text-2xl lg:text-3xl font-bold mb-8">ショッピングカート</h1>
+      <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium tracking-wide mb-8">ショッピングカート</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Cart Items */}
@@ -78,8 +78,8 @@ export default function CartPage() {
           ))}
         </div>
 
-        {/* Summary */}
-        <div className="lg:col-span-1">
+        {/* Summary - Desktop */}
+        <div className="lg:col-span-1 hidden lg:block">
           <div className="bg-gray-50 p-6 sticky top-24">
             <h2 className="font-bold mb-4">ご注文内容</h2>
 
@@ -122,6 +122,26 @@ export default function CartPage() {
           </div>
         </div>
       </div>
+
+      {/* Mobile Fixed Bottom Bar */}
+      <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white border-t border-gray-200 p-4 z-40">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm text-gray-600">{items.length}点</span>
+          <div className="text-right">
+            <span className="text-xs text-gray-500">合計（税込）</span>
+            <p className="text-lg font-bold">{formatPrice(getTotal())}</p>
+          </div>
+        </div>
+        <Link href="/checkout" className="block">
+          <Button className="w-full" size="lg">
+            ご注文手続きへ
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </Link>
+      </div>
+
+      {/* Spacer for mobile fixed bar */}
+      <div className="h-32 lg:hidden" />
     </div>
   );
 }

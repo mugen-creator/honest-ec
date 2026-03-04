@@ -13,7 +13,17 @@
   --color-gold: var(--gold);
   --color-gold-dark: var(--gold-dark);
   --font-sans: var(--font-noto-sans-jp), "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-  --font-serif: var(--font-cormorant), "Times New Roman", serif;
+  --font-serif: var(--font-shippori), "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --font-display: var(--font-playfair), Georgia, serif;
+}
+
+/* Typography - defined outside @layer to prevent purging */
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif !important;
+}
+
+.font-serif-jp {
+  font-family: var(--font-shippori), "Yu Mincho", "Hiragino Mincho ProN", serif !important;
 }
 
 body {
@@ -51,11 +61,15 @@ body {
   outline-offset: 2px;
 }
 
-/* Animation */
-@keyframes fadeIn {
+/* ============================================
+   Animations
+   ============================================ */
+
+/* Fade In Up */
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -64,7 +78,124 @@ body {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Scroll-triggered fade in */
+.scroll-fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children animation */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.stagger-children.is-visible > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(2) { transition-delay: 50ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(3) { transition-delay: 100ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(4) { transition-delay: 150ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(5) { transition-delay: 200ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(6) { transition-delay: 250ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(7) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(8) { transition-delay: 350ms; opacity: 1; transform: translateY(0); }
+
+/* Scale on hover */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Button press effect */
+.btn-press {
+  transition: transform 0.1s ease-out;
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Heart animation for favorites */
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.animate-heart {
+  animation: heartBeat 0.4s ease-out;
+}
+
+/* Cart bounce */
+@keyframes cartBounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-3px); }
+}
+
+.animate-cart-bounce {
+  animation: cartBounce 0.4s ease-out;
+}
+
+/* Shimmer loading */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* View Transitions */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}
+
+::view-transition-old(root) {
+  animation: fadeOut 0.3s ease-out;
+}
+
+::view-transition-new(root) {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Product image transition name */
+.product-image-transition {
+  view-transition-name: product-image;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Product condition badge colors */

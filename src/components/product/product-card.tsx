@@ -36,6 +36,7 @@ export function ProductCard({ product, rank }: ProductCardProps) {
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              style={{ viewTransitionName: `product-${product.id}` }}
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-gray-400">

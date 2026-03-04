@@ -82,6 +82,7 @@ model User {
   favorites  Favorite[]
   cartItems  CartItem[]
   inquiries  Inquiry[]
+  reviews    Review[]
 }
 
 // ============================================
@@ -133,11 +134,13 @@ model Product {
   createdAt    DateTime         @default(now())
   updatedAt    DateTime         @updatedAt
 
-  images      ProductImage[]
-  orderItems  OrderItem[]
-  favorites   Favorite[]
-  cartItems   CartItem[]
-  inquiries   Inquiry[]
+  images              ProductImage[]
+  orderItems          OrderItem[]
+  favorites           Favorite[]
+  cartItems           CartItem[]
+  inquiries           Inquiry[]
+  restockNotifications RestockNotification[]
+  reviews             Review[]
 }
 
 model ProductImage {
@@ -184,6 +187,7 @@ model Order {
   userId          String
   status          OrderStatus @default(PENDING)
   totalAmount     Int
+  discountAmount  Int         @default(0)
   paymentMethod   String?     // credit_card or bank_transfer
   shippingName    String
   shippingPhone   String
@@ -193,6 +197,8 @@ model Order {
   shippingAddress String
   shippingBuilding String?
   stripePaymentId String?
+  coupon          Coupon?     @relation(fields: [couponId], references: [id])
+  couponId        String?
   note            String?     @db.Text
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
@@ -249,4 +255,66 @@ model Inquiry {
   status    InquiryStatus @default(PENDING)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
+}
+
+// ============================================
+// 再入荷通知
+// ============================================
+
+model RestockNotification {
+  id        String   @id @default(cuid())
+  email     String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  notified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@unique([email, productId])
+}
+
+// ============================================
+// レビュー
+// ============================================
+
+model Review {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  rating    Int      // 1-5
+  title     String?
+  comment   String   @db.Text
+  isApproved Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, productId])
+}
+
+// ============================================
+// クーポン
+// ============================================
+
+enum CouponType {
+  PERCENTAGE   // 割合割引
+  FIXED_AMOUNT // 固定金額割引
+}
+
+model Coupon {
+  id            String     @id @default(cuid())
+  code          String     @unique
+  type          CouponType
+  value         Int        // PERCENTAGE: 10 = 10%, FIXED_AMOUNT: 1000 = ¥1000
+  minPurchase   Int?       // 最低購入金額
+  maxDiscount   Int?       // 最大割引額（PERCENTAGE時）
+  usageLimit    Int?       // 使用回数上限
+  usageCount    Int        @default(0)
+  validFrom     DateTime
+  validUntil    DateTime
+  isActive      Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  orders Order[]
 }

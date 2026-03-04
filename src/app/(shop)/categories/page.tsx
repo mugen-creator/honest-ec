@@ -29,7 +29,7 @@ export default async function CategoriesPage() {
     <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl lg:text-3xl font-bold mb-2">カテゴリー一覧</h1>
+        <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium tracking-wide mb-2">カテゴリー一覧</h1>
         <p className="text-gray-600">
           お探しの商品カテゴリーをお選びください
         </p>
@@ -43,7 +43,7 @@ export default async function CategoriesPage() {
             href={`/products?category=${category.slug}`}
             className="group relative border border-gray-200 p-8 hover:border-black transition-colors"
           >
-            <h2 className="font-bold text-xl group-hover:text-amber-600 transition-colors">
+            <h2 className="font-serif-jp font-medium text-xl tracking-wide group-hover:text-amber-600 transition-colors">
               {category.name}
             </h2>
             <p className="text-sm text-gray-500 mt-2">

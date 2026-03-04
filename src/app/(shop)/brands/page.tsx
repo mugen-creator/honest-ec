@@ -29,7 +29,7 @@ export default async function BrandsPage() {
     <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl lg:text-3xl font-bold mb-2">ブランド一覧</h1>
+        <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium tracking-wide mb-2">ブランド一覧</h1>
         <p className="text-gray-600">
           {brandsWithProducts.length}ブランドの取り扱いがあります
         </p>
@@ -43,7 +43,7 @@ export default async function BrandsPage() {
             href={`/products?brand=${brand.slug}`}
             className="group border border-gray-200 p-6 hover:border-black transition-colors"
           >
-            <h2 className="font-bold text-lg group-hover:text-amber-600 transition-colors">
+            <h2 className="font-serif-jp font-medium text-lg tracking-wide group-hover:text-amber-600 transition-colors">
               {brand.name}
             </h2>
             <p className="text-sm text-gray-500 mt-1">

@@ -46,7 +46,7 @@ function ResetPasswordForm() {
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <div className="w-full max-w-md text-center">
           <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-6" />
-          <h1 className="text-2xl font-bold mb-4">無効なリンクです</h1>
+          <h1 className="font-serif-jp text-2xl font-medium tracking-wide mb-4">無効なリンクです</h1>
           <p className="text-gray-600 mb-8">
             このパスワードリセットリンクは無効です。
             <br />
@@ -88,7 +88,7 @@ function ResetPasswordForm() {
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <div className="w-full max-w-md text-center">
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-          <h1 className="text-2xl font-bold mb-4">パスワードを変更しました</h1>
+          <h1 className="font-serif-jp text-2xl font-medium tracking-wide mb-4">パスワードを変更しました</h1>
           <p className="text-gray-600 mb-8">
             新しいパスワードでログインしてください。
           </p>
@@ -103,7 +103,7 @@ function ResetPasswordForm() {
   return (
     <div className="min-h-[60vh] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-2">新しいパスワードを設定</h1>
+        <h1 className="font-serif-jp text-2xl font-medium tracking-wide text-center mb-2">新しいパスワードを設定</h1>
         <p className="text-center text-gray-600 mb-8">
           新しいパスワードを入力してください。
         </p>

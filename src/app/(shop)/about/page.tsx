@@ -8,11 +8,11 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 lg:py-16">
-      <h1 className="text-3xl font-bold text-center mb-12">会社概要</h1>
+      <h1 className="font-serif-jp text-3xl font-medium tracking-wide text-center mb-12">会社概要</h1>
 
       {/* Mission */}
       <section className="mb-16">
-        <h2 className="text-xl font-bold mb-4 border-b pb-2">私たちの想い</h2>
+        <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4 border-b pb-2">私たちの想い</h2>
         <p className="text-gray-600 leading-relaxed">
           Honest-Maisonは「本物だけを、誠実な価格で」をモットーに、
           お客様に信頼いただけるブランド品・高級時計専門店を目指しております。
@@ -59,7 +59,7 @@ export default function AboutPage() {
 
       {/* Company Info */}
       <section>
-        <h2 className="text-xl font-bold mb-4 border-b pb-2">会社情報</h2>
+        <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4 border-b pb-2">会社情報</h2>
         <dl className="grid grid-cols-[120px,1fr] gap-y-4 text-sm">
           <dt className="text-gray-500">会社名</dt>
           <dd>合同会社Honest</dd>

@@ -1,26 +1,23 @@
 import Link from "next/link";
 import { ArrowRight, Shield, Truck, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AnimatedSection } from "@/components/ui/animated-section";
+import { HeroSlideshow } from "@/components/layout/hero-slideshow";
 
 export default function HomePage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[70vh] lg:h-[80vh] bg-gray-900">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-60"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1920')`,
-          }}
-        />
+      <section className="relative h-[70vh] lg:h-[80vh] bg-gray-900 overflow-hidden">
+        <HeroSlideshow />
         <div className="relative h-full flex items-center justify-center text-center">
-          <div className="max-w-3xl px-4">
-            <h2 className="text-white text-4xl lg:text-6xl font-bold mb-6 tracking-tight">
+          <div className="max-w-3xl px-4 animate-fade-in">
+            <h2 className="font-serif-jp text-white text-4xl lg:text-6xl font-medium mb-6 tracking-wide leading-tight">
               本物だけを、
               <br />
               誠実な価格で。
             </h2>
-            <p className="text-gray-200 text-lg lg:text-xl mb-8">
+            <p className="text-gray-200 text-lg lg:text-xl mb-8 tracking-wide">
               厳選された高級ブランド品・時計を、
               <br className="hidden sm:block" />
               確かな鑑定と安心の保証でお届けします。
@@ -38,7 +35,7 @@ export default function HomePage() {
       {/* Features */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+          <AnimatedSection stagger className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-amber-50 rounded-full">
                 <Shield className="w-8 h-8 text-amber-600" />
@@ -72,17 +69,19 @@ export default function HomePage() {
                 修理・メンテナンスのご相談も承ります。
               </p>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Menu Sections */}
       <section className="py-16 lg:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl lg:text-3xl font-bold text-center mb-12">
-            SHOP
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+          <AnimatedSection>
+            <h2 className="font-display text-2xl lg:text-3xl font-semibold text-center mb-12 tracking-widest">
+              SHOP
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection stagger className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
             {/* New Arrivals */}
             <Link
               href="/products?sort=newest"
@@ -97,7 +96,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-white text-lg lg:text-xl font-bold tracking-wider">NEW ARRIVALS</h3>
+                  <h3 className="font-display text-white text-lg lg:text-xl font-medium tracking-widest">NEW ARRIVALS</h3>
                   <p className="text-gray-200 text-sm mt-1">新着商品</p>
                 </div>
               </div>
@@ -117,7 +116,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-white text-lg lg:text-xl font-bold tracking-wider">RANKING</h3>
+                  <h3 className="font-display text-white text-lg lg:text-xl font-medium tracking-widest">RANKING</h3>
                   <p className="text-gray-200 text-sm mt-1">人気ランキング</p>
                 </div>
               </div>
@@ -137,7 +136,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-white text-lg lg:text-xl font-bold tracking-wider">BRANDS</h3>
+                  <h3 className="font-display text-white text-lg lg:text-xl font-medium tracking-widest">BRANDS</h3>
                   <p className="text-gray-200 text-sm mt-1">ブランド一覧</p>
                 </div>
               </div>
@@ -157,22 +156,22 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-white text-lg lg:text-xl font-bold tracking-wider">CATEGORY</h3>
+                  <h3 className="font-display text-white text-lg lg:text-xl font-medium tracking-widest">CATEGORY</h3>
                   <p className="text-gray-200 text-sm mt-1">カテゴリー一覧</p>
                 </div>
               </div>
             </Link>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-16 lg:py-24 bg-black text-white">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-2xl lg:text-3xl font-bold mb-4">
+        <AnimatedSection className="max-w-3xl mx-auto px-4 text-center">
+          <h2 className="font-serif-jp text-2xl lg:text-3xl font-medium mb-4 tracking-wide">
             会員登録で特別なお知らせを
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-gray-400 mb-8 tracking-wide">
             新着商品やセール情報をいち早くお届けします。
           </p>
           <Link href="/register">
@@ -180,7 +179,7 @@ export default function HomePage() {
               無料会員登録
             </Button>
           </Link>
-        </div>
+        </AnimatedSection>
       </section>
     </div>
   );

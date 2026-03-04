@@ -7,12 +7,12 @@ export const metadata = {
 export default function GuidePage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 lg:py-16">
-      <h1 className="text-3xl font-bold text-center mb-12">ご利用ガイド</h1>
+      <h1 className="font-serif-jp text-3xl font-medium tracking-wide text-center mb-12">ご利用ガイド</h1>
 
       <div className="space-y-12">
         {/* お買い物の流れ */}
         <section>
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-6 flex items-center gap-2">
             <Shield className="w-6 h-6 text-amber-600" />
             お買い物の流れ
           </h2>
@@ -81,7 +81,7 @@ export default function GuidePage() {
 
         {/* お支払い方法 */}
         <section>
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-6 flex items-center gap-2">
             <CreditCard className="w-6 h-6 text-amber-600" />
             お支払い方法
           </h2>
@@ -113,7 +113,7 @@ export default function GuidePage() {
 
         {/* 配送について */}
         <section>
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-6 flex items-center gap-2">
             <Truck className="w-6 h-6 text-amber-600" />
             配送について
           </h2>
@@ -147,7 +147,7 @@ export default function GuidePage() {
 
         {/* お問い合わせ */}
         <section>
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-6 flex items-center gap-2">
             <MessageSquare className="w-6 h-6 text-amber-600" />
             お問い合わせ
           </h2>

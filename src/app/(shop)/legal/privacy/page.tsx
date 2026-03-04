@@ -5,7 +5,7 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 lg:py-16">
-      <h1 className="text-3xl font-bold text-center mb-12">
+      <h1 className="font-serif-jp text-3xl font-medium tracking-wide text-center mb-12">
         プライバシーポリシー
       </h1>
 
@@ -16,14 +16,14 @@ export default function PrivacyPage() {
         </p>
 
         <section>
-          <h2 className="text-xl font-bold mb-4">1. 個人情報の定義</h2>
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4">1. 個人情報の定義</h2>
           <p className="text-gray-600">
             個人情報とは、氏名、住所、電話番号、メールアドレス等、特定の個人を識別できる情報をいいます。
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-4">2. 個人情報の収集</h2>
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4">2. 個人情報の収集</h2>
           <p className="text-gray-600">
             当社は、以下の場合に個人情報を収集いたします。
           </p>
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-4">3. 個人情報の利用目的</h2>
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4">3. 個人情報の利用目的</h2>
           <p className="text-gray-600">
             収集した個人情報は、以下の目的で利用いたします。
           </p>
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-4">4. 個人情報の第三者提供</h2>
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4">4. 個人情報の第三者提供</h2>
           <p className="text-gray-600">
             当社は、以下の場合を除き、お客様の個人情報を第三者に提供いたしません。
           </p>
@@ -62,14 +62,14 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-4">5. 個人情報の管理</h2>
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4">5. 個人情報の管理</h2>
           <p className="text-gray-600">
             当社は、個人情報の漏洩、滅失、毀損等を防止するため、適切な安全管理措置を講じます。
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-4">6. 個人情報の開示・訂正・削除</h2>
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4">6. 個人情報の開示・訂正・削除</h2>
           <p className="text-gray-600">
             お客様ご本人から個人情報の開示、訂正、削除のご請求があった場合は、
             本人確認の上、速やかに対応いたします。
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-4">7. お問い合わせ</h2>
+          <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4">7. お問い合わせ</h2>
           <p className="text-gray-600">
             個人情報の取り扱いに関するお問い合わせは、下記までご連絡ください。
           </p>

@@ -243,7 +243,7 @@ export default function CheckoutPage() {
   if (mounted && items.length === 0) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold mb-4">ご注文手続き</h1>
+        <h1 className="font-serif-jp text-2xl font-medium tracking-wide mb-4">ご注文手続き</h1>
         <p className="text-gray-500 mb-8">カートに商品がありません</p>
         <Link href="/products">
           <Button>商品を見る</Button>
@@ -372,7 +372,7 @@ export default function CheckoutPage() {
         カートに戻る
       </Link>
 
-      <h1 className="text-2xl lg:text-3xl font-bold mb-8">ご注文手続き</h1>
+      <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium tracking-wide mb-8">ご注文手続き</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -629,8 +629,8 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Order Summary */}
-          <div className="lg:col-span-1">
+          {/* Order Summary - Desktop */}
+          <div className="lg:col-span-1 hidden lg:block">
             <div className="bg-gray-50 p-6 sticky top-24">
               <h2 className="font-bold mb-4">ご注文内容</h2>
 
@@ -693,7 +693,61 @@ export default function CheckoutPage() {
               </p>
             </div>
           </div>
+
+          {/* Mobile Order Summary (Collapsible) */}
+          <div className="lg:hidden order-first mb-6">
+            <details className="bg-gray-50 p-4">
+              <summary className="flex items-center justify-between cursor-pointer">
+                <span className="font-medium">ご注文内容（{items.length}点）</span>
+                <span className="font-bold">{formatPrice(getTotal())}</span>
+              </summary>
+              <div className="mt-4 pt-4 border-t space-y-3">
+                {items.map(({ product }) => (
+                  <div key={product.id} className="flex gap-3">
+                    <div className="relative w-12 h-12 bg-gray-100 flex-shrink-0">
+                      {product.images[0] && (
+                        <Image
+                          src={product.images[0].url}
+                          alt={product.name}
+                          fill
+                          className="object-cover"
+                          sizes="48px"
+                        />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-amber-600">{product.brand.name}</p>
+                      <p className="text-sm line-clamp-1">{product.name}</p>
+                      <p className="text-sm font-bold">{formatPrice(product.price)}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </details>
+          </div>
         </div>
+
+        {/* Mobile Fixed Bottom Bar */}
+        <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white border-t border-gray-200 p-4 z-40">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm text-gray-600">{items.length}点</span>
+            <div className="text-right">
+              <span className="text-xs text-gray-500">合計（税込）</span>
+              <p className="text-lg font-bold">{formatPrice(getTotal())}</p>
+            </div>
+          </div>
+          <Button
+            type="submit"
+            className="w-full"
+            size="lg"
+            isLoading={isProcessing}
+          >
+            注文を確定する
+          </Button>
+        </div>
+
+        {/* Spacer for mobile fixed bar */}
+        <div className="h-32 lg:hidden" />
       </form>
     </div>
   );

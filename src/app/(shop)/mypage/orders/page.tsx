@@ -64,7 +64,7 @@ export default async function OrdersPage() {
         マイページに戻る
       </Link>
 
-      <h1 className="text-2xl font-bold mb-8">注文履歴</h1>
+      <h1 className="font-serif-jp text-2xl font-medium tracking-wide mb-8">注文履歴</h1>
 
       {orders.length === 0 ? (
         <div className="text-center py-16 bg-gray-50">

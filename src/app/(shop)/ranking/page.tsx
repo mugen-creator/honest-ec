@@ -33,7 +33,7 @@ export default async function RankingPage() {
     <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl lg:text-3xl font-bold mb-2">人気ランキング</h1>
+        <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium tracking-wide mb-2">人気ランキング</h1>
         <p className="text-gray-600">
           売れ筋商品をチェック
         </p>

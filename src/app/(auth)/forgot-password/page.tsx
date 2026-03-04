@@ -52,7 +52,7 @@ export default function ForgotPasswordPage() {
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <div className="w-full max-w-md text-center">
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-          <h1 className="text-2xl font-bold mb-4">メールを送信しました</h1>
+          <h1 className="font-serif-jp text-2xl font-medium tracking-wide mb-4">メールを送信しました</h1>
           <p className="text-gray-600 mb-8">
             ご登録のメールアドレス宛にパスワード再設定用のリンクを送信しました。
             <br />
@@ -72,7 +72,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="min-h-[60vh] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-2">パスワード再設定</h1>
+        <h1 className="font-serif-jp text-2xl font-medium tracking-wide text-center mb-2">パスワード再設定</h1>
         <p className="text-center text-gray-600 mb-8">
           ご登録のメールアドレスを入力してください。
           <br />

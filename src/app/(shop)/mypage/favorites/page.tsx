@@ -59,7 +59,7 @@ export default function FavoritesPage() {
         マイページに戻る
       </Link>
 
-      <h1 className="text-2xl font-bold mb-8">お気に入り</h1>
+      <h1 className="font-serif-jp text-2xl font-medium tracking-wide mb-8">お気に入り</h1>
 
       {!mounted || isLoading ? (
         <div className="text-center py-16">

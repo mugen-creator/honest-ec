@@ -4,15 +4,14 @@ export function Footer() {
   return (
     <footer className="bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {/* Brand */}
-          <div>
-            <h2 className="text-xl font-bold tracking-wider mb-4">
+          <div className="col-span-2 lg:col-span-1">
+            <h2 className="font-display text-xl font-semibold tracking-wide mb-4">
               Honest<span className="text-amber-500">-</span>Maison
             </h2>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-400 text-sm leading-relaxed tracking-wide">
               厳選された高級ブランド品を、
-              <br />
               誠実な価格でお届けします。
             </p>
           </div>

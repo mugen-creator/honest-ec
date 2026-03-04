@@ -40,7 +40,7 @@ export default async function MyPage() {
     <div className="max-w-4xl mx-auto px-4 py-8 lg:py-12">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl lg:text-3xl font-bold mb-2">マイページ</h1>
+        <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium tracking-wide mb-2">マイページ</h1>
         <p className="text-gray-600">
           ようこそ、{session.user.name || session.user.email} さん
         </p>

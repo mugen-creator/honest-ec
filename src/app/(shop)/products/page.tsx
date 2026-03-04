@@ -11,6 +11,7 @@ interface ProductsPageProps {
     maxPrice?: string;
     condition?: string;
     sort?: string;
+    search?: string;
   }>;
 }
 
@@ -64,6 +65,16 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     where.condition = { in: conditions };
   }
 
+  // 検索クエリ
+  if (params.search) {
+    where.OR = [
+      { name: { contains: params.search, mode: "insensitive" } },
+      { description: { contains: params.search, mode: "insensitive" } },
+      { brand: { name: { contains: params.search, mode: "insensitive" } } },
+      { category: { name: { contains: params.search, mode: "insensitive" } } },
+    ];
+  }
+
   // ソート条件
   let orderBy: Record<string, string> = { createdAt: "desc" };
   switch (params.sort) {
@@ -98,22 +109,26 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     ? brands.find((b) => b.slug === params.brand)?.name
     : null;
 
-  const pageTitle = categoryName || brandName || "全商品";
+  const searchQuery = params.search || null;
+
+  const pageTitle = searchQuery
+    ? `「${searchQuery}」の検索結果`
+    : categoryName || brandName || "全商品";
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl lg:text-3xl font-bold mb-2">{pageTitle}</h1>
-        <p className="text-gray-600">
+        <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium mb-2 tracking-wide">{pageTitle}</h1>
+        <p className="text-gray-600 tracking-wide">
           {products.length}件の商品が見つかりました
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* Filters - Sidebar */}
-        <aside className="lg:w-64 flex-shrink-0">
-          <Suspense fallback={<div>読み込み中...</div>}>
+        <aside className="lg:w-56 xl:w-64 flex-shrink-0">
+          <Suspense fallback={<div className="animate-pulse h-8 bg-gray-100" />}>
             <ProductFilters
               categories={categories}
               brands={brands}
@@ -125,7 +140,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         </aside>
 
         {/* Products Grid */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <ProductGrid products={products} />
         </div>
       </div>

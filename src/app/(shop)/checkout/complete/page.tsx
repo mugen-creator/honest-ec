@@ -16,7 +16,7 @@ function CheckoutCompleteContent() {
     <div className="max-w-2xl mx-auto px-4 py-16 text-center">
       <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
 
-      <h1 className="text-2xl lg:text-3xl font-bold mb-4">
+      <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium tracking-wide mb-4">
         ご注文ありがとうございます
       </h1>
 

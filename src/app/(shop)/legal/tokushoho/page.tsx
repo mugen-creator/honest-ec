@@ -5,7 +5,7 @@ export const metadata = {
 export default function TokushohoPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 lg:py-16">
-      <h1 className="text-3xl font-bold text-center mb-12">
+      <h1 className="font-serif-jp text-3xl font-medium tracking-wide text-center mb-12">
         特定商取引法に基づく表記
       </h1>
 

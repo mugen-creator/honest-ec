@@ -61,7 +61,7 @@ function ContactForm() {
     return (
       <div className="text-center py-16">
         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-        <h2 className="text-2xl font-bold mb-4">
+        <h2 className="font-serif-jp text-2xl font-medium tracking-wide mb-4">
           お問い合わせを受け付けました
         </h2>
         <p className="text-gray-600 mb-8">
@@ -130,7 +130,7 @@ export default function ContactPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 lg:py-12">
       <div className="text-center mb-8">
-        <h1 className="text-2xl lg:text-3xl font-bold mb-2">お問い合わせ</h1>
+        <h1 className="font-serif-jp text-2xl lg:text-3xl font-medium tracking-wide mb-2">お問い合わせ</h1>
         <p className="text-gray-600">
           商品に関するご質問やご要望など、お気軽にお問い合わせください。
         </p>

@@ -26,12 +26,13 @@ export function ProductImageGallery({ images, productName }: ProductImageGallery
   return (
     <div className="space-y-4">
       {/* Main Image */}
-      <div className="relative aspect-square bg-gray-100 overflow-hidden">
+      <div className="relative aspect-square bg-gray-100 overflow-hidden product-image-transition">
         <Image
+          key={selectedImage.id}
           src={selectedImage.url}
           alt={selectedImage.alt || productName}
           fill
-          className="object-cover"
+          className="object-cover animate-fade-in"
           sizes="(max-width: 1024px) 100vw, 50vw"
           priority
         />
