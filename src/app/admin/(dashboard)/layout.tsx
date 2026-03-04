@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { LayoutDashboard, Package, ShoppingCart, Users, MessageSquare, LogOut, Tag, Bookmark, BarChart3, Image } from "lucide-react";
-import { authOptions } from "@/lib/auth";
+import { verifyAdminToken } from "@/lib/admin-auth";
+import { AdminLogoutButton } from "@/components/admin/admin-logout-button";
 
 export const metadata = {
   title: {
@@ -28,14 +28,10 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const isAuthenticated = await verifyAdminToken();
 
-  if (!session) {
+  if (!isAuthenticated) {
     redirect("/admin/login");
-  }
-
-  if (session.user.role !== "ADMIN") {
-    redirect("/?error=unauthorized");
   }
 
   return (
@@ -48,7 +44,7 @@ export default async function AdminLayout({
             <span className="text-amber-500 ml-2 text-sm font-normal">Admin</span>
           </Link>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-300">{session.user.email}</span>
+            <span className="text-sm text-gray-300">管理者</span>
             <Link
               href="/"
               className="text-sm text-gray-300 hover:text-white"
@@ -78,13 +74,7 @@ export default async function AdminLayout({
             </ul>
 
             <div className="border-t mt-4 pt-4">
-              <Link
-                href="/api/auth/signout"
-                className="flex items-center gap-3 px-4 py-3 text-sm text-gray-500 hover:text-black w-full"
-              >
-                <LogOut className="w-5 h-5" />
-                ログアウト
-              </Link>
+              <AdminLogoutButton />
             </div>
           </nav>
         </aside>

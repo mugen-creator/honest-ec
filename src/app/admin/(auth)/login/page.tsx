@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function AdminLoginPage() {
@@ -16,20 +15,29 @@ export default function AdminLoginPage() {
     setError("");
     setLoading(true);
 
-    const result = await signIn("credentials", {
-      identifier: username,
-      password,
-      redirect: false,
-    });
+    try {
+      const response = await fetch("/api/admin/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (result?.error) {
-      setError("ユーザー名またはパスワードが正しくありません");
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "ログインに失敗しました");
+        setLoading(false);
+        return;
+      }
+
+      router.push("/admin");
+      router.refresh();
+    } catch {
+      setError("ログインに失敗しました");
       setLoading(false);
-      return;
     }
-
-    router.push("/admin");
-    router.refresh();
   };
 
   return (
