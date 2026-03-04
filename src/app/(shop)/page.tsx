@@ -76,37 +76,57 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Menu Sections */}
       <section className="py-16 lg:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl lg:text-3xl font-bold text-center mb-12">
-            CATEGORIES
+            SHOP
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Watches */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+            {/* New Arrivals */}
             <Link
-              href="/products?category=watches"
-              className="group relative h-80 overflow-hidden bg-gray-900"
+              href="/products?sort=newest"
+              className="group relative h-64 overflow-hidden bg-gray-900"
             >
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=800')`,
+                  backgroundImage: `url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800')`,
                 }}
               />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-white text-2xl font-bold tracking-wider">WATCHES</h3>
-                  <p className="text-gray-200 mt-2">時計</p>
+                  <h3 className="text-white text-lg lg:text-xl font-bold tracking-wider">NEW ARRIVALS</h3>
+                  <p className="text-gray-200 text-sm mt-1">新着商品</p>
                 </div>
               </div>
             </Link>
 
-            {/* Bags */}
+            {/* Ranking */}
             <Link
-              href="/products?category=bags"
-              className="group relative h-80 overflow-hidden bg-gray-900"
+              href="/ranking"
+              className="group relative h-64 overflow-hidden bg-gray-900"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                style={{
+                  backgroundImage: `url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800')`,
+                }}
+              />
+              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <h3 className="text-white text-lg lg:text-xl font-bold tracking-wider">RANKING</h3>
+                  <p className="text-gray-200 text-sm mt-1">人気ランキング</p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Brands */}
+            <Link
+              href="/brands"
+              className="group relative h-64 overflow-hidden bg-gray-900"
             >
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
@@ -114,19 +134,19 @@ export default function HomePage() {
                   backgroundImage: `url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800')`,
                 }}
               />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-white text-2xl font-bold tracking-wider">BAGS</h3>
-                  <p className="text-gray-200 mt-2">バッグ</p>
+                  <h3 className="text-white text-lg lg:text-xl font-bold tracking-wider">BRANDS</h3>
+                  <p className="text-gray-200 text-sm mt-1">ブランド一覧</p>
                 </div>
               </div>
             </Link>
 
-            {/* Accessories */}
+            {/* Category */}
             <Link
-              href="/products?category=accessories"
-              className="group relative h-80 overflow-hidden bg-gray-900"
+              href="/categories"
+              className="group relative h-64 overflow-hidden bg-gray-900"
             >
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
@@ -134,11 +154,11 @@ export default function HomePage() {
                   backgroundImage: `url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800')`,
                 }}
               />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-white text-2xl font-bold tracking-wider">ACCESSORIES</h3>
-                  <p className="text-gray-200 mt-2">アクセサリー</p>
+                  <h3 className="text-white text-lg lg:text-xl font-bold tracking-wider">CATEGORY</h3>
+                  <p className="text-gray-200 text-sm mt-1">カテゴリー一覧</p>
                 </div>
               </div>
             </Link>
