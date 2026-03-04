@@ -81,8 +81,8 @@ export default function ReturnsPage() {
             返品・交換に関するお問い合わせは、下記までご連絡ください。
           </p>
           <p className="text-gray-600 mt-2">
-            メール: support@honest-maison.com<br />
-            電話: 03-XXXX-XXXX（平日 10:00〜18:00）
+            メール: info@maison.k-honest.com<br />
+            電話: 03-4500-3763（平日 10:00〜18:00）
           </p>
         </section>
       </div>
