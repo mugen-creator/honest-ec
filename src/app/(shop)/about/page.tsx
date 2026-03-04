@@ -79,6 +79,9 @@ export default function AboutPage() {
           <dt className="text-gray-500">古物商許可</dt>
           <dd>東京都公安委員会 第304362420799号</dd>
 
+          <dt className="text-gray-500">電話番号</dt>
+          <dd>03-4500-3763（平日 10:00〜18:00）</dd>
+
           <dt className="text-gray-500">メール</dt>
           <dd>info@maison.k-honest.com</dd>
         </dl>

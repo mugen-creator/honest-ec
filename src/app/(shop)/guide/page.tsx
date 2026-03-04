@@ -85,16 +85,29 @@ export default function GuidePage() {
             <CreditCard className="w-6 h-6 text-amber-600" />
             お支払い方法
           </h2>
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <h3 className="font-bold mb-2">クレジットカード</h3>
-            <p className="text-gray-600 text-sm mb-4">
-              VISA、Mastercard、JCB、American Expressがご利用いただけます。
-            </p>
-            <p className="text-gray-500 text-xs">
-              ※お支払いは一括払いのみとなります。<br />
-              ※決済はStripeの安全なシステムを利用しております。<br />
-              ※カード情報は当社では保持いたしません。
-            </p>
+          <div className="space-y-4">
+            <div className="bg-gray-50 p-6 rounded-lg">
+              <h3 className="font-bold mb-2">クレジットカード</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                VISA、Mastercard、JCB、American Expressがご利用いただけます。
+              </p>
+              <p className="text-gray-500 text-xs">
+                ※お支払いは一括払いのみとなります。<br />
+                ※決済はStripeの安全なシステムを利用しております。<br />
+                ※カード情報は当社では保持いたしません。
+              </p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg">
+              <h3 className="font-bold mb-2">銀行振込</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                ご注文後7日以内にお振込みください。
+                入金確認後、商品を発送いたします。
+              </p>
+              <p className="text-gray-500 text-xs">
+                ※振込先口座は注文完了画面およびメールにてお知らせいたします。<br />
+                ※振込手数料はお客様負担となります。
+              </p>
+            </div>
           </div>
         </section>
 
@@ -144,9 +157,9 @@ export default function GuidePage() {
             </p>
             <dl className="grid grid-cols-[80px,1fr] gap-y-2 text-sm">
               <dt className="text-gray-500">電話</dt>
-              <dd>03-XXXX-XXXX（平日 10:00〜18:00）</dd>
+              <dd>03-4500-3763（平日 10:00〜18:00）</dd>
               <dt className="text-gray-500">メール</dt>
-              <dd>info@honest-maison.com</dd>
+              <dd>info@maison.k-honest.com</dd>
             </dl>
           </div>
         </section>

@@ -32,6 +32,12 @@ export default function TokushohoPage() {
             </tr>
             <tr className="border-b">
               <th className="text-left py-4 pr-4 align-top text-gray-500 font-normal">
+                電話番号
+              </th>
+              <td className="py-4">03-4500-3763（平日 10:00〜18:00）</td>
+            </tr>
+            <tr className="border-b">
+              <th className="text-left py-4 pr-4 align-top text-gray-500 font-normal">
                 メールアドレス
               </th>
               <td className="py-4">info@maison.k-honest.com</td>
