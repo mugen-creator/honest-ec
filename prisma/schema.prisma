@@ -59,20 +59,22 @@ enum UserRole {
 }
 
 model User {
-  id             String    @id @default(cuid())
-  email          String    @unique
-  emailVerified  DateTime?
-  hashedPassword String?
-  name           String?
-  phone          String?
-  postalCode     String?
-  prefecture     String?
-  city           String?
-  address        String?
-  building       String?
-  role           UserRole  @default(CUSTOMER)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  emailVerified       DateTime?
+  hashedPassword      String?
+  name                String?
+  phone               String?
+  postalCode          String?
+  prefecture          String?
+  city                String?
+  address             String?
+  building            String?
+  role                UserRole  @default(CUSTOMER)
+  passwordResetToken  String?
+  passwordResetExpires DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
   accounts   Account[]
   sessions   Session[]
@@ -182,6 +184,7 @@ model Order {
   userId          String
   status          OrderStatus @default(PENDING)
   totalAmount     Int
+  paymentMethod   String?     // credit_card or bank_transfer
   shippingName    String
   shippingPhone   String
   shippingPostal  String
@@ -240,6 +243,7 @@ model Inquiry {
   productId String?
   email     String
   name      String
+  subject   String?
   message   String        @db.Text
   reply     String?       @db.Text
   status    InquiryStatus @default(PENDING)

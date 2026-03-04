@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 function CheckoutCompleteContent() {
   const searchParams = useSearchParams();
   const paymentMethod = searchParams.get("method");
+  const orderNumber = searchParams.get("order");
   const isBankTransfer = paymentMethod === "bank_transfer";
 
   return (
@@ -18,6 +19,12 @@ function CheckoutCompleteContent() {
       <h1 className="text-2xl lg:text-3xl font-bold mb-4">
         ご注文ありがとうございます
       </h1>
+
+      {orderNumber && (
+        <p className="text-lg font-medium mb-4">
+          注文番号: <span className="text-amber-600">{orderNumber}</span>
+        </p>
+      )}
 
       <p className="text-gray-600 mb-8">
         ご注文を受け付けました。
@@ -36,11 +43,11 @@ function CheckoutCompleteContent() {
           <dl className="text-sm space-y-2">
             <div className="flex">
               <dt className="w-24 text-gray-600">銀行名</dt>
-              <dd className="font-medium">○○銀行</dd>
+              <dd className="font-medium">住信SBIネット銀行</dd>
             </div>
             <div className="flex">
               <dt className="w-24 text-gray-600">支店名</dt>
-              <dd className="font-medium">○○支店（000）</dd>
+              <dd className="font-medium">法人第一支店（106）</dd>
             </div>
             <div className="flex">
               <dt className="w-24 text-gray-600">口座種別</dt>
@@ -48,7 +55,7 @@ function CheckoutCompleteContent() {
             </div>
             <div className="flex">
               <dt className="w-24 text-gray-600">口座番号</dt>
-              <dd className="font-medium">1234567</dd>
+              <dd className="font-medium">2571301</dd>
             </div>
             <div className="flex">
               <dt className="w-24 text-gray-600">口座名義</dt>

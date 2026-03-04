@@ -35,10 +35,26 @@ function ContactForm() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    // TODO: 実際の送信処理
-    console.log("Contact form submitted:", data);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitted(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          productId: productId || undefined,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "送信に失敗しました");
+      }
+
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Contact error:", error);
+      alert("送信に失敗しました。時間をおいて再度お試しください。");
+    }
   };
 
   if (isSubmitted) {

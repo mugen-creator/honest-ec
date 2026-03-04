@@ -38,17 +38,17 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            <Link href="/products" className="text-sm font-medium hover:text-amber-600 transition-colors">
-              ALL ITEMS
+            <Link href="/products?sort=newest" className="text-sm font-medium hover:text-amber-600 transition-colors">
+              NEW ARRIVALS
             </Link>
-            <Link href="/products?category=watches" className="text-sm font-medium hover:text-amber-600 transition-colors">
-              WATCHES
+            <Link href="/ranking" className="text-sm font-medium hover:text-amber-600 transition-colors">
+              RANKING
             </Link>
-            <Link href="/products?category=bags" className="text-sm font-medium hover:text-amber-600 transition-colors">
-              BAGS
+            <Link href="/brands" className="text-sm font-medium hover:text-amber-600 transition-colors">
+              BRANDS
             </Link>
-            <Link href="/products?category=accessories" className="text-sm font-medium hover:text-amber-600 transition-colors">
-              ACCESSORIES
+            <Link href="/categories" className="text-sm font-medium hover:text-amber-600 transition-colors">
+              CATEGORY
             </Link>
           </nav>
 
@@ -73,32 +73,32 @@ export function Header() {
         <div className="lg:hidden bg-white border-t border-gray-200">
           <nav className="flex flex-col py-4">
             <Link
-              href="/products"
+              href="/products?sort=newest"
               className="px-4 py-3 text-sm font-medium hover:bg-gray-50"
               onClick={() => setIsMenuOpen(false)}
             >
-              ALL ITEMS
+              NEW ARRIVALS
             </Link>
             <Link
-              href="/products?category=watches"
+              href="/ranking"
               className="px-4 py-3 text-sm font-medium hover:bg-gray-50"
               onClick={() => setIsMenuOpen(false)}
             >
-              WATCHES
+              RANKING
             </Link>
             <Link
-              href="/products?category=bags"
+              href="/brands"
               className="px-4 py-3 text-sm font-medium hover:bg-gray-50"
               onClick={() => setIsMenuOpen(false)}
             >
-              BAGS
+              BRANDS
             </Link>
             <Link
-              href="/products?category=accessories"
+              href="/categories"
               className="px-4 py-3 text-sm font-medium hover:bg-gray-50"
               onClick={() => setIsMenuOpen(false)}
             >
-              ACCESSORIES
+              CATEGORY
             </Link>
           </nav>
         </div>

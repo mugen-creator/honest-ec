@@ -6,9 +6,10 @@ import { FavoriteButton } from "./favorite-button";
 
 interface ProductCardProps {
   product: Product;
+  rank?: number;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, rank }: ProductCardProps) {
   const mainImage = product.images[0];
 
   return (
@@ -16,6 +17,18 @@ export function ProductCard({ product }: ProductCardProps) {
       <Link href={`/products/${product.id}`} className="block">
         {/* Image */}
         <div className="relative aspect-square overflow-hidden bg-gray-100 mb-4">
+          {/* Rank Badge */}
+          {rank && (
+            <span className={cn(
+              "absolute top-3 left-3 z-10 w-8 h-8 flex items-center justify-center text-sm font-bold rounded-full",
+              rank === 1 ? "bg-amber-400 text-white" :
+              rank === 2 ? "bg-gray-300 text-gray-700" :
+              rank === 3 ? "bg-amber-600 text-white" :
+              "bg-black text-white"
+            )}>
+              {rank}
+            </span>
+          )}
           {mainImage ? (
             <Image
               src={mainImage.url}
@@ -31,14 +44,16 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
 
           {/* Condition Badge */}
-          <span
-            className={cn(
-              "absolute top-3 left-3 px-2 py-1 text-xs font-medium",
-              conditionColors[product.condition]
-            )}
-          >
-            {product.condition === "NEW" ? "新品" : `${product.condition}ランク`}
-          </span>
+          {!rank && (
+            <span
+              className={cn(
+                "absolute top-3 left-3 px-2 py-1 text-xs font-medium",
+                conditionColors[product.condition]
+              )}
+            >
+              {product.condition === "NEW" ? "新品" : `${product.condition}ランク`}
+            </span>
+          )}
 
           {/* Favorite Button */}
           <div className="absolute top-3 right-3 p-2 bg-white/80 hover:bg-white rounded-full transition-colors">

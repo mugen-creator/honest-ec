@@ -1,19 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ChevronLeft, MapPin } from "lucide-react";
+import { ChevronLeft, MapPin, CreditCard } from "lucide-react";
 import { useCartStore } from "@/lib/cart-store";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
+
+declare global {
+  interface Window {
+    Square?: {
+      payments: (appId: string, locationId: string) => Promise<any>;
+    };
+  }
+}
 
 const prefectures = [
   "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
@@ -58,15 +66,27 @@ export default function CheckoutPage() {
   const [mounted, setMounted] = useState(false);
   const [userAddress, setUserAddress] = useState<UserAddress | null>(null);
   const [useRegisteredAddress, setUseRegisteredAddress] = useState<boolean | null>(null);
+  const [saveAddress, setSaveAddress] = useState(false);
+
+  // Square関連
+  const [cardReady, setCardReady] = useState(false);
+  const [cardError, setCardError] = useState<string | null>(null);
+  const [isCardLoading, setIsCardLoading] = useState(false);
+  const cardContainerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<any>(null);
+  const paymentsRef = useRef<any>(null);
 
   const {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
   });
+
+  const selectedPaymentMethod = useWatch({ control, name: "paymentMethod" });
 
   useEffect(() => {
     setMounted(true);
@@ -107,6 +127,91 @@ export default function CheckoutPage() {
         .catch(console.error);
     }
   }, [status, reset]);
+
+  // Squareカード入力の初期化
+  useEffect(() => {
+    if (selectedPaymentMethod !== "credit_card" || !mounted) return;
+
+    let isMounted = true;
+
+    const loadSquare = async () => {
+      setIsCardLoading(true);
+      setCardError(null);
+
+      try {
+        // Square SDKの読み込み
+        if (!window.Square) {
+          await new Promise<void>((resolve, reject) => {
+            const existingScript = document.querySelector('script[src*="square"]');
+            if (existingScript) {
+              if (window.Square) {
+                resolve();
+              } else {
+                existingScript.addEventListener("load", () => resolve());
+              }
+              return;
+            }
+
+            const script = document.createElement("script");
+            script.src = "https://web.squarecdn.com/v1/square.js";
+            script.async = true;
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error("Square SDKの読み込みに失敗しました"));
+            document.head.appendChild(script);
+          });
+        }
+
+        if (!isMounted || !window.Square) return;
+
+        // 設定を取得
+        const configRes = await fetch("/api/payment/config");
+        const config = await configRes.json();
+
+        if (!config.applicationId || !config.locationId) {
+          throw new Error("Square設定が見つかりません");
+        }
+
+        // Paymentsインスタンスの作成
+        if (!paymentsRef.current) {
+          paymentsRef.current = await window.Square.payments(config.applicationId, config.locationId);
+        }
+
+        // 既存のカードがあれば破棄
+        if (cardRef.current) {
+          await cardRef.current.destroy();
+          cardRef.current = null;
+        }
+
+        // カードの初期化（郵便番号欄を非表示）
+        const card = await paymentsRef.current.card({
+          postalCode: false,
+        });
+
+        if (isMounted && cardContainerRef.current) {
+          await card.attach(cardContainerRef.current);
+          cardRef.current = card;
+          setCardReady(true);
+        }
+      } catch (error) {
+        console.error("Square initialization error:", error);
+        if (isMounted) {
+          setCardError(error instanceof Error ? error.message : "カード入力の初期化に失敗しました");
+        }
+      } finally {
+        if (isMounted) {
+          setIsCardLoading(false);
+        }
+      }
+    };
+
+    // 少し遅延させてDOMの準備を待つ
+    const timeoutId = setTimeout(loadSquare, 100);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+    };
+  }, [selectedPaymentMethod, mounted]);
 
   // 住所選択が変わったときにフォームをリセット
   const handleAddressChoice = (useRegistered: boolean) => {
@@ -157,21 +262,98 @@ export default function CheckoutPage() {
 
   const onSubmit = async (data: CheckoutFormData) => {
     setIsProcessing(true);
+    setCardError(null);
 
     try {
-      if (data.paymentMethod === "credit_card") {
-        // TODO: Stripe決済処理
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+      // 住所を保存する場合
+      if (saveAddress && useRegisteredAddress === false) {
+        await fetch("/api/user", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: data.name,
+            phone: data.phone,
+            postalCode: data.postalCode,
+            prefecture: data.prefecture,
+            city: data.city,
+            address: data.address,
+            building: data.building,
+          }),
+        });
       }
 
-      // 注文を作成（本来はAPIで処理）
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      let paymentId: string | undefined;
+
+      // クレジットカード決済の場合
+      if (data.paymentMethod === "credit_card") {
+        if (!cardRef.current) {
+          throw new Error("カード情報が入力されていません");
+        }
+
+        // カード情報をトークン化
+        const tokenResult = await cardRef.current.tokenize();
+
+        if (tokenResult.status !== "OK") {
+          const errorMessage = tokenResult.errors?.[0]?.message || "カード情報の検証に失敗しました";
+          throw new Error(errorMessage);
+        }
+
+        // 決済処理
+        const paymentResponse = await fetch("/api/payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sourceId: tokenResult.token,
+            amount: getTotal(),
+          }),
+        });
+
+        const paymentData = await paymentResponse.json();
+
+        if (!paymentResponse.ok) {
+          throw new Error(paymentData.error || "決済処理に失敗しました");
+        }
+
+        paymentId = paymentData.paymentId;
+      }
+
+      // 注文を作成
+      const orderResponse = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map(({ product }) => ({
+            productId: product.id,
+            name: product.name,
+            price: product.price,
+          })),
+          shippingName: data.name,
+          shippingPhone: data.phone,
+          shippingPostal: data.postalCode,
+          shippingPrefecture: data.prefecture,
+          shippingCity: data.city,
+          shippingAddress: data.address,
+          shippingBuilding: data.building || "",
+          paymentMethod: data.paymentMethod,
+          paymentId,
+          totalAmount: getTotal(),
+        }),
+      });
+
+      if (!orderResponse.ok) {
+        const errorData = await orderResponse.json();
+        throw new Error(errorData.error || "注文処理に失敗しました");
+      }
+
+      const orderData = await orderResponse.json();
 
       clearCart();
-      router.push(`/checkout/complete?method=${data.paymentMethod}`);
+      router.push(`/checkout/complete?method=${data.paymentMethod}&order=${orderData.orderNumber}`);
     } catch (error) {
       console.error("Checkout error:", error);
-      alert("注文処理中にエラーが発生しました。");
+      const message = error instanceof Error ? error.message : "注文処理中にエラーが発生しました。";
+      setCardError(message);
+      alert(message);
     } finally {
       setIsProcessing(false);
     }
@@ -249,9 +431,6 @@ export default function CheckoutPage() {
                     />
                     <div>
                       <span className="font-medium">別の住所を入力する</span>
-                      <p className="text-sm text-gray-500">
-                        今回のご注文のみ使用します
-                      </p>
                     </div>
                   </label>
                 </div>
@@ -327,6 +506,19 @@ export default function CheckoutPage() {
                       {...register("building")}
                     />
                   </div>
+
+                  {/* Save address checkbox */}
+                  <div className="md:col-span-2 mt-2">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={saveAddress}
+                        onChange={(e) => setSaveAddress(e.target.checked)}
+                        className="w-4 h-4"
+                      />
+                      <span className="text-sm">この住所を次回以降も使用する</span>
+                    </label>
+                  </div>
                 </div>
               )}
 
@@ -361,20 +553,57 @@ export default function CheckoutPage() {
               <h2 className="font-bold mb-4">お支払い方法</h2>
 
               <div className="space-y-3">
-                <label className="flex items-start gap-3 p-4 border border-gray-200 cursor-pointer hover:border-black transition-colors has-[:checked]:border-black has-[:checked]:bg-gray-50">
-                  <input
-                    type="radio"
-                    value="credit_card"
-                    className="mt-0.5"
-                    {...register("paymentMethod")}
-                  />
-                  <div>
-                    <span className="font-medium">クレジットカード決済</span>
-                    <p className="text-xs text-gray-500 mt-1">
-                      VISA / Mastercard / JCB / American Express
-                    </p>
-                  </div>
-                </label>
+                <div>
+                  <label className="flex items-start gap-3 p-4 border border-gray-200 cursor-pointer hover:border-black transition-colors has-[:checked]:border-black has-[:checked]:bg-gray-50">
+                    <input
+                      type="radio"
+                      value="credit_card"
+                      className="mt-0.5"
+                      {...register("paymentMethod")}
+                    />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <CreditCard className="w-4 h-4" />
+                        <span className="font-medium">クレジットカード決済</span>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">
+                        VISA / Mastercard / JCB / American Express
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Square Card Input */}
+                  {selectedPaymentMethod === "credit_card" && (
+                    <div className="mt-3 ml-7 p-4 bg-gray-50 border border-gray-200 rounded">
+                      <p className="text-sm text-gray-600 mb-3">カード情報を入力してください</p>
+
+                      {isCardLoading && (
+                        <div className="flex items-center justify-center py-6">
+                          <div className="animate-spin rounded-full h-5 w-5 border-2 border-amber-600 border-t-transparent"></div>
+                          <span className="ml-2 text-sm text-gray-500">読み込み中...</span>
+                        </div>
+                      )}
+
+                      <div
+                        ref={cardContainerRef}
+                        id="card-container"
+                        className={isCardLoading ? "hidden" : ""}
+                        style={{ minHeight: "89px" }}
+                      />
+
+                      {cardError && (
+                        <p className="text-sm text-red-500 mt-2">{cardError}</p>
+                      )}
+
+                      <p className="text-xs text-gray-400 mt-3 flex items-center gap-1">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                        </svg>
+                        カード情報は安全に暗号化されて処理されます
+                      </p>
+                    </div>
+                  )}
+                </div>
 
                 <label className="flex items-start gap-3 p-4 border border-gray-200 cursor-pointer hover:border-black transition-colors has-[:checked]:border-black has-[:checked]:bg-gray-50">
                   <input

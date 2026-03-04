@@ -79,6 +79,12 @@ function LoginForm() {
       <Button type="submit" className="w-full" isLoading={isSubmitting}>
         ログイン
       </Button>
+
+      <div className="text-center">
+        <Link href="/forgot-password" className="text-sm text-gray-500 hover:text-black">
+          パスワードをお忘れの方
+        </Link>
+      </div>
     </form>
   );
 }

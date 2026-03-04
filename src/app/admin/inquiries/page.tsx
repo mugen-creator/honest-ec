@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Eye } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
 export const metadata = {
@@ -27,9 +29,18 @@ export default async function AdminInquiriesPage() {
     },
   });
 
+  const pendingCount = inquiries.filter((i) => i.status === "PENDING").length;
+
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">問い合わせ管理</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">問い合わせ管理</h1>
+        {pendingCount > 0 && (
+          <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">
+            未対応: {pendingCount}件
+          </span>
+        )}
+      </div>
 
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
         {inquiries.length === 0 ? (
@@ -37,50 +48,55 @@ export default async function AdminInquiriesPage() {
             問い合わせがありません
           </div>
         ) : (
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  送信者
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  メール
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  内容
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  ステータス
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  日時
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {inquiries.map((inquiry) => (
-                <tr key={inquiry.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 font-medium">
-                    {inquiry.name}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
-                    {inquiry.email}
-                  </td>
-                  <td className="px-6 py-4 text-sm">
-                    <p className="truncate max-w-[300px]">{inquiry.message}</p>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`px-2 py-1 text-xs rounded-full ${statusColors[inquiry.status] || "bg-gray-100"}`}>
-                      {statusLabels[inquiry.status] || inquiry.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
-                    {new Date(inquiry.createdAt).toLocaleString("ja-JP")}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="divide-y">
+            {inquiries.map((inquiry) => (
+              <div
+                key={inquiry.id}
+                className={`p-4 hover:bg-gray-50 ${
+                  inquiry.status === "PENDING" ? "bg-amber-50" : ""
+                }`}
+              >
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="font-medium">{inquiry.name}</span>
+                      <span className={`px-2 py-0.5 text-xs rounded-full ${statusColors[inquiry.status]}`}>
+                        {statusLabels[inquiry.status]}
+                      </span>
+                    </div>
+                    <div className="text-sm text-gray-500 mb-2">
+                      {inquiry.email}
+                    </div>
+                    {inquiry.subject && (
+                      <div className="text-sm font-medium mb-1">
+                        {inquiry.subject}
+                      </div>
+                    )}
+                    <p className="text-sm text-gray-600 line-clamp-2">
+                      {inquiry.message}
+                    </p>
+                    {inquiry.product && (
+                      <div className="mt-2 text-xs text-amber-600">
+                        関連商品: {inquiry.product.name}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col items-end gap-2">
+                    <div className="text-sm text-gray-500">
+                      {new Date(inquiry.createdAt).toLocaleString("ja-JP")}
+                    </div>
+                    <Link
+                      href={`/admin/inquiries/${inquiry.id}`}
+                      className="flex items-center gap-1 text-amber-600 hover:underline text-sm"
+                    >
+                      <Eye className="w-4 h-4" />
+                      詳細・返信
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>

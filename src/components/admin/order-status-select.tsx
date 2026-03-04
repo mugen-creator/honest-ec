@@ -27,16 +27,31 @@ export function OrderStatusSelect({
   const handleChange = async (newStatus: string) => {
     if (newStatus === status) return;
 
+    let trackingNumber: string | undefined;
+
+    // 発送済に変更する場合は追跡番号を入力
+    if (newStatus === "SHIPPED") {
+      const input = prompt("追跡番号を入力してください（任意）");
+      if (input === null) return; // キャンセル
+      trackingNumber = input || undefined;
+    }
+
+    // キャンセルの場合は確認
+    if (newStatus === "CANCELLED") {
+      if (!confirm("この注文をキャンセルしますか？")) return;
+    }
+
     setIsUpdating(true);
     try {
       const response = await fetch(`/api/admin/orders/${orderId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus }),
+        body: JSON.stringify({ status: newStatus, trackingNumber }),
       });
 
       if (response.ok) {
         setStatus(newStatus);
+        alert("ステータスを更新しました。顧客にメールを送信しました。");
       } else {
         alert("ステータスの更新に失敗しました");
       }
