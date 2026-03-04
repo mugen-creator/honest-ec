@@ -33,6 +33,9 @@ const checkoutSchema = z.object({
   city: z.string().min(1, "市区町村を入力してください"),
   address: z.string().min(1, "番地を入力してください"),
   building: z.string().optional(),
+  paymentMethod: z.enum(["bank_transfer", "credit_card"], {
+    message: "支払い方法を選択してください",
+  }),
 });
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
@@ -88,12 +91,16 @@ export default function CheckoutPage() {
     setIsProcessing(true);
 
     try {
-      // TODO: Stripe決済処理
-      // 仮の処理として、注文完了へ遷移
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (data.paymentMethod === "credit_card") {
+        // TODO: Stripe決済処理
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+      }
+
+      // 注文を作成（本来はAPIで処理）
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       clearCart();
-      router.push("/checkout/complete");
+      router.push(`/checkout/complete?method=${data.paymentMethod}`);
     } catch (error) {
       console.error("Checkout error:", error);
       alert("注文処理中にエラーが発生しました。");
@@ -193,15 +200,47 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Payment Info */}
+            {/* Payment Method */}
             <div className="border border-gray-200 p-6">
               <h2 className="font-bold mb-4">お支払い方法</h2>
-              <p className="text-sm text-gray-600">
-                クレジットカード決済（Stripe）
-              </p>
-              <p className="text-xs text-gray-400 mt-2">
-                ※ 次の画面で決済情報を入力します
-              </p>
+
+              <div className="space-y-3">
+                <label className="flex items-start gap-3 p-4 border border-gray-200 cursor-pointer hover:border-black transition-colors has-[:checked]:border-black has-[:checked]:bg-gray-50">
+                  <input
+                    type="radio"
+                    value="credit_card"
+                    className="mt-0.5"
+                    {...register("paymentMethod")}
+                  />
+                  <div>
+                    <span className="font-medium">クレジットカード決済</span>
+                    <p className="text-xs text-gray-500 mt-1">
+                      VISA / Mastercard / JCB / American Express
+                    </p>
+                  </div>
+                </label>
+
+                <label className="flex items-start gap-3 p-4 border border-gray-200 cursor-pointer hover:border-black transition-colors has-[:checked]:border-black has-[:checked]:bg-gray-50">
+                  <input
+                    type="radio"
+                    value="bank_transfer"
+                    className="mt-0.5"
+                    {...register("paymentMethod")}
+                  />
+                  <div>
+                    <span className="font-medium">銀行振込</span>
+                    <p className="text-xs text-gray-500 mt-1">
+                      ご注文後7日以内にお振込みください
+                    </p>
+                  </div>
+                </label>
+              </div>
+
+              {errors.paymentMethod && (
+                <p className="text-sm text-red-500 mt-2">
+                  {errors.paymentMethod.message}
+                </p>
+              )}
             </div>
           </div>
 
