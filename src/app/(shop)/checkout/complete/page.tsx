@@ -52,7 +52,7 @@ function CheckoutCompleteContent() {
             </div>
             <div className="flex">
               <dt className="w-24 text-gray-600">口座名義</dt>
-              <dd className="font-medium">カ）オネストメゾン</dd>
+              <dd className="font-medium">ド）オネスト</dd>
             </div>
           </dl>
           <p className="text-xs text-amber-600 mt-4">

@@ -62,28 +62,25 @@ export default function AboutPage() {
         <h2 className="text-xl font-bold mb-4 border-b pb-2">会社情報</h2>
         <dl className="grid grid-cols-[120px,1fr] gap-y-4 text-sm">
           <dt className="text-gray-500">会社名</dt>
-          <dd>株式会社 Honest-Maison（仮）</dd>
+          <dd>合同会社Honest</dd>
 
           <dt className="text-gray-500">所在地</dt>
-          <dd>〒150-0000 東京都渋谷区○○○ 1-2-3</dd>
+          <dd>〒169-0072 東京都新宿区大久保2丁目19-15 サンフォレスト405号室</dd>
 
           <dt className="text-gray-500">代表者</dt>
-          <dd>代表取締役 ○○ ○○</dd>
+          <dd>代表社員 町田 強平</dd>
 
           <dt className="text-gray-500">設立</dt>
-          <dd>2024年○月</dd>
+          <dd>2024年5月（令和6年5月）</dd>
 
           <dt className="text-gray-500">事業内容</dt>
           <dd>高級ブランド品・時計の販売</dd>
 
           <dt className="text-gray-500">古物商許可</dt>
-          <dd>東京都公安委員会 第○○○○○○○○号</dd>
-
-          <dt className="text-gray-500">電話番号</dt>
-          <dd>03-XXXX-XXXX（平日 10:00〜18:00）</dd>
+          <dd>東京都公安委員会 第304362420799号</dd>
 
           <dt className="text-gray-500">メール</dt>
-          <dd>info@honest-maison.com</dd>
+          <dd>info@maison.k-honest.com</dd>
         </dl>
       </section>
     </div>
