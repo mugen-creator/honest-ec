@@ -131,11 +131,11 @@ export default function ContactPage() {
         <dl className="space-y-2 text-sm">
           <div className="flex gap-4">
             <dt className="text-gray-500 w-24">電話</dt>
-            <dd>03-XXXX-XXXX（平日 10:00〜18:00）</dd>
+            <dd>03-4500-3763（平日 10:00〜18:00）</dd>
           </div>
           <div className="flex gap-4">
             <dt className="text-gray-500 w-24">メール</dt>
-            <dd>info@honest-maison.com</dd>
+            <dd>info@maison.k-honest.com</dd>
           </div>
         </dl>
       </div>
