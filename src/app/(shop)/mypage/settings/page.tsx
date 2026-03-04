@@ -3,16 +3,38 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { SettingsForm } from "@/components/mypage/settings-form";
 
 export const metadata = {
   title: "会員情報",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function SettingsPage() {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
+  if (!session?.user?.email) {
     redirect("/login?callbackUrl=/mypage/settings");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+    select: {
+      name: true,
+      email: true,
+      phone: true,
+      postalCode: true,
+      prefecture: true,
+      city: true,
+      address: true,
+      building: true,
+    },
+  });
+
+  if (!user) {
+    redirect("/login");
   }
 
   return (
@@ -26,40 +48,45 @@ export default async function SettingsPage() {
         マイページに戻る
       </Link>
 
-      <h1 className="text-2xl font-bold mb-8">会員情報</h1>
+      <h1 className="text-2xl font-bold mb-8">会員情報の変更</h1>
 
-      {/* User Info */}
-      <div className="space-y-6">
-        <div className="border-b pb-6">
-          <h2 className="font-bold mb-4">基本情報</h2>
-          <dl className="grid grid-cols-[120px,1fr] gap-y-4 text-sm">
-            <dt className="text-gray-500">お名前</dt>
-            <dd>{session.user.name || "未設定"}</dd>
+      <SettingsForm initialUser={user} />
 
-            <dt className="text-gray-500">メールアドレス</dt>
-            <dd>{session.user.email}</dd>
-          </dl>
-        </div>
+      {/* アカウント操作 */}
+      <section className="mt-12 pt-8 border-t">
+        <h2 className="font-bold mb-4">アカウント設定</h2>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between p-4 bg-gray-50 rounded">
+            <div>
+              <p className="font-medium">パスワードの変更</p>
+              <p className="text-sm text-gray-500">
+                ログインパスワードを変更します
+              </p>
+            </div>
+            <Link
+              href="/mypage/settings/password"
+              className="text-sm text-amber-600 hover:underline"
+            >
+              変更する
+            </Link>
+          </div>
 
-        <div className="border-b pb-6">
-          <h2 className="font-bold mb-4">配送先住所</h2>
-          <p className="text-sm text-gray-500">配送先住所が登録されていません</p>
-          {/* TODO: 住所登録フォーム */}
-        </div>
-
-        <div>
-          <h2 className="font-bold mb-4">アカウント</h2>
-          <div className="space-y-2">
-            <button className="text-sm text-amber-600 hover:underline">
-              パスワードを変更する
-            </button>
-            <br />
-            <button className="text-sm text-red-600 hover:underline">
-              アカウントを削除する
-            </button>
+          <div className="flex items-center justify-between p-4 bg-red-50 rounded">
+            <div>
+              <p className="font-medium text-red-700">アカウントの削除</p>
+              <p className="text-sm text-red-500">
+                アカウントを完全に削除します。この操作は取り消せません。
+              </p>
+            </div>
+            <Link
+              href="/mypage/settings/delete"
+              className="text-sm text-red-600 hover:underline"
+            >
+              削除する
+            </Link>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
