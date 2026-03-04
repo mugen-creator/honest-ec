@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Eye } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
 export const metadata = {
@@ -65,6 +67,9 @@ export default async function AdminMembersPage() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   権限
                 </th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  操作
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -94,6 +99,14 @@ export default async function AdminMembersPage() {
                     >
                       {member.role === "ADMIN" ? "管理者" : "会員"}
                     </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right">
+                    <Link
+                      href={`/admin/members/${member.id}`}
+                      className="text-amber-600 hover:text-amber-700"
+                    >
+                      <Eye className="w-4 h-4 inline" />
+                    </Link>
                   </td>
                 </tr>
               ))}
