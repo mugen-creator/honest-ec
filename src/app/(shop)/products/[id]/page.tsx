@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronRight, Shield, Truck, RotateCcw } from "lucide-react";
+import { ChevronRight, Shield, Truck, RotateCcw, Heart } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { conditionLabels } from "@/types/product";
 import { ProductImageGallery } from "@/components/product/product-image-gallery";
 import { AddToCartButton } from "@/components/product/add-to-cart-button";
+import { FavoriteButton } from "@/components/product/favorite-button";
 import { ProductGrid } from "@/components/product/product-grid";
 
 interface ProductDetailPageProps {
@@ -112,8 +113,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <span className="font-medium">{conditionLabels[product.condition] || product.condition}</span>
           </div>
 
-          {/* Add to Cart */}
-          <div className="mb-8">
+          {/* Add to Cart & Favorite */}
+          <div className="mb-8 space-y-3">
             {product.stock > 0 ? (
               <AddToCartButton product={product} />
             ) : (
@@ -121,6 +122,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 <span className="text-gray-500 font-medium">SOLD OUT</span>
               </div>
             )}
+            <div className="flex justify-center">
+              <FavoriteButton
+                productId={product.id}
+                showText
+                className="flex items-center text-sm hover:text-red-500"
+              />
+            </div>
           </div>
 
           {/* Features */}
