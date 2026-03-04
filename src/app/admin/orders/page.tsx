@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
+import { OrderStatusSelect } from "@/components/admin/order-status-select";
 
 export const metadata = {
   title: "注文管理",
@@ -13,14 +14,6 @@ const statusLabels: Record<string, string> = {
   SHIPPED: "発送済",
   DELIVERED: "配達完了",
   CANCELLED: "キャンセル",
-};
-
-const statusColors: Record<string, string> = {
-  PENDING: "bg-yellow-100 text-yellow-800",
-  PAYMENT_CONFIRMED: "bg-blue-100 text-blue-800",
-  SHIPPED: "bg-purple-100 text-purple-800",
-  DELIVERED: "bg-green-100 text-green-800",
-  CANCELLED: "bg-red-100 text-red-800",
 };
 
 export default async function AdminOrdersPage() {
@@ -54,6 +47,9 @@ export default async function AdminOrdersPage() {
                   顧客名
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  商品
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   金額
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
@@ -71,15 +67,25 @@ export default async function AdminOrdersPage() {
                     {order.orderNumber}
                   </td>
                   <td className="px-6 py-4 text-sm">
-                    {order.shippingName}
+                    <div>{order.shippingName}</div>
+                    <div className="text-gray-500 text-xs">{order.user.email}</div>
+                  </td>
+                  <td className="px-6 py-4 text-sm">
+                    {order.items.map((item, index) => (
+                      <div key={item.id} className={index > 0 ? "mt-1" : ""}>
+                        {item.product.name}
+                      </div>
+                    ))}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium">
                     {formatPrice(order.totalAmount)}
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`px-2 py-1 text-xs rounded-full ${statusColors[order.status] || "bg-gray-100"}`}>
-                      {statusLabels[order.status] || order.status}
-                    </span>
+                    <OrderStatusSelect
+                      orderId={order.id}
+                      currentStatus={order.status}
+                      statusLabels={statusLabels}
+                    />
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-600">
                     {new Date(order.createdAt).toLocaleString("ja-JP")}
