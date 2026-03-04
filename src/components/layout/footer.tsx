@@ -96,7 +96,7 @@ export function Footer() {
               &copy; {new Date().getFullYear()} Honest-Maison. All rights reserved.
             </p>
             <p className="text-gray-400 text-sm">
-              古物商許可番号: 第○○○○○○○○号
+              古物商許可番号: 第304362420799号
             </p>
           </div>
         </div>
