@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ExportButton } from "@/components/admin/export-button";
 
 export const metadata = {
   title: "商品管理",
@@ -26,12 +27,18 @@ export default async function AdminProductsPage() {
     <div>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">商品管理</h1>
-        <Link href="/admin/products/new">
-          <Button>
-            <Plus className="w-4 h-4 mr-2" />
-            新規商品
-          </Button>
-        </Link>
+        <div className="flex items-center gap-3">
+          <ExportButton
+            endpoint="/api/admin/export/products"
+            filename={`products_${new Date().toISOString().split("T")[0]}.csv`}
+          />
+          <Link href="/admin/products/new">
+            <Button>
+              <Plus className="w-4 h-4 mr-2" />
+              新規商品
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Eye } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { ExportButton } from "@/components/admin/export-button";
 
 export const metadata = {
   title: "会員管理",
@@ -35,7 +36,13 @@ export default async function AdminMembersPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">会員管理</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">会員管理</h1>
+        <ExportButton
+          endpoint="/api/admin/export/members"
+          filename={`members_${new Date().toISOString().split("T")[0]}.csv`}
+        />
+      </div>
 
       {error && (
         <div className="bg-red-100 text-red-700 p-4 rounded mb-6">

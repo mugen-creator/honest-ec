@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { OrderStatusSelect } from "@/components/admin/order-status-select";
+import { ExportButton } from "@/components/admin/export-button";
 import { Eye } from "lucide-react";
 
 export const metadata = {
@@ -36,7 +37,13 @@ export default async function AdminOrdersPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">注文管理</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">注文管理</h1>
+        <ExportButton
+          endpoint="/api/admin/export/orders"
+          filename={`orders_${new Date().toISOString().split("T")[0]}.csv`}
+        />
+      </div>
 
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
         {orders.length === 0 ? (
