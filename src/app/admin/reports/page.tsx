@@ -10,12 +10,13 @@ export const metadata = {
 };
 
 async function getSalesData() {
-  const now = new Date();
-  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-  const sixtyDaysAgo = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
+  try {
+    const now = new Date();
+    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const sixtyDaysAgo = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
 
-  // 過去30日の注文
-  const recentOrders = await prisma.order.findMany({
+    // 過去30日の注文
+    const recentOrders = await prisma.order.findMany({
     where: {
       createdAt: { gte: thirtyDaysAgo },
       status: { not: "CANCELLED" },
@@ -96,26 +97,58 @@ async function getSalesData() {
     where: { createdAt: { gte: thirtyDaysAgo } },
   });
 
-  return {
-    dailySales,
-    topProducts,
-    stats: {
-      currentRevenue,
-      revenueChange,
-      currentOrderCount,
-      orderChange,
-      avgOrderValue,
-      newUsers,
-    },
-  };
+    return {
+      dailySales,
+      topProducts,
+      stats: {
+        currentRevenue,
+        revenueChange,
+        currentOrderCount,
+        orderChange,
+        avgOrderValue,
+        newUsers,
+      },
+      error: null,
+    };
+  } catch (e) {
+    console.error("Sales data error:", e);
+    // デフォルト値を返す
+    const now = new Date();
+    const defaultDailySales = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+      defaultDailySales.push({ date: date.toISOString().split("T")[0], amount: 0, count: 0 });
+    }
+    return {
+      dailySales: defaultDailySales,
+      topProducts: [],
+      stats: {
+        currentRevenue: 0,
+        revenueChange: 0,
+        currentOrderCount: 0,
+        orderChange: 0,
+        avgOrderValue: 0,
+        newUsers: 0,
+      },
+      error: e instanceof Error ? e.message : "データベースエラー",
+    };
+  }
 }
 
 export default async function ReportsPage() {
-  const { dailySales, topProducts, stats } = await getSalesData();
+  const { dailySales, topProducts, stats, error } = await getSalesData();
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-8">売上レポート</h1>
+
+      {error && (
+        <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg">
+          <p className="font-medium">データ取得エラー</p>
+          <p className="text-sm mt-1">データベースの同期が必要です。以下のコマンドを実行してください:</p>
+          <code className="block mt-2 p-2 bg-red-100 rounded text-xs">npx prisma db push</code>
+        </div>
+      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
