@@ -14,12 +14,18 @@ const bannerSchema = z.object({
 
 // バナー一覧取得
 export async function GET() {
-  const banners = await prisma.banner.findMany({
-    where: { isActive: true },
-    orderBy: { sortOrder: "asc" },
-  });
+  try {
+    const banners = await prisma.banner.findMany({
+      where: { isActive: true },
+      orderBy: { sortOrder: "asc" },
+    });
 
-  return NextResponse.json(banners);
+    return NextResponse.json(banners);
+  } catch (error) {
+    // テーブルが存在しない場合は空配列を返す
+    console.error("Get banners error:", error);
+    return NextResponse.json([]);
+  }
 }
 
 // バナー作成
