@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, MapPin } from "lucide-react";
 import { useCartStore } from "@/lib/cart-store";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -40,24 +40,37 @@ const checkoutSchema = z.object({
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
+interface UserAddress {
+  name: string | null;
+  phone: string | null;
+  postalCode: string | null;
+  prefecture: string | null;
+  city: string | null;
+  address: string | null;
+  building: string | null;
+}
+
 export default function CheckoutPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const { items, getTotal, clearCart } = useCartStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [userAddress, setUserAddress] = useState<UserAddress | null>(null);
+  const [useRegisteredAddress, setUseRegisteredAddress] = useState<boolean | null>(null);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // ログインチェック
   useEffect(() => {
@@ -65,6 +78,61 @@ export default function CheckoutPage() {
       router.push("/login?callbackUrl=/checkout");
     }
   }, [status, router]);
+
+  // 登録住所を取得
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/user")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.user) {
+            setUserAddress(data.user);
+            // 住所が登録されている場合はデフォルトで登録住所を使う
+            if (data.user.postalCode) {
+              setUseRegisteredAddress(true);
+              reset({
+                name: data.user.name || "",
+                phone: data.user.phone || "",
+                postalCode: data.user.postalCode || "",
+                prefecture: data.user.prefecture || "",
+                city: data.user.city || "",
+                address: data.user.address || "",
+                building: data.user.building || "",
+              });
+            } else {
+              setUseRegisteredAddress(false);
+            }
+          }
+        })
+        .catch(console.error);
+    }
+  }, [status, reset]);
+
+  // 住所選択が変わったときにフォームをリセット
+  const handleAddressChoice = (useRegistered: boolean) => {
+    setUseRegisteredAddress(useRegistered);
+    if (useRegistered && userAddress) {
+      reset({
+        name: userAddress.name || "",
+        phone: userAddress.phone || "",
+        postalCode: userAddress.postalCode || "",
+        prefecture: userAddress.prefecture || "",
+        city: userAddress.city || "",
+        address: userAddress.address || "",
+        building: userAddress.building || "",
+      });
+    } else {
+      reset({
+        name: "",
+        phone: "",
+        postalCode: "",
+        prefecture: "",
+        city: "",
+        address: "",
+        building: "",
+      });
+    }
+  };
 
   // カートが空の場合
   if (mounted && items.length === 0) {
@@ -109,6 +177,8 @@ export default function CheckoutPage() {
     }
   };
 
+  const hasRegisteredAddress = userAddress?.postalCode;
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 lg:py-12">
       {/* Back Link */}
@@ -129,75 +199,161 @@ export default function CheckoutPage() {
             <div className="border border-gray-200 p-6">
               <h2 className="font-bold mb-6">配送先情報</h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="md:col-span-2">
-                  <Input
-                    id="name"
-                    label="お名前"
-                    placeholder="山田 太郎"
-                    error={errors.name?.message}
-                    {...register("name")}
-                  />
+              {/* Address Choice */}
+              {hasRegisteredAddress && (
+                <div className="mb-6 space-y-3">
+                  <label
+                    className={`flex items-start gap-3 p-4 border cursor-pointer transition-colors ${
+                      useRegisteredAddress
+                        ? "border-black bg-gray-50"
+                        : "border-gray-200 hover:border-gray-400"
+                    }`}
+                    onClick={() => handleAddressChoice(true)}
+                  >
+                    <input
+                      type="radio"
+                      name="addressChoice"
+                      checked={useRegisteredAddress === true}
+                      onChange={() => handleAddressChoice(true)}
+                      className="mt-1"
+                    />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <MapPin className="w-4 h-4 text-amber-600" />
+                        <span className="font-medium">登録済みの住所を使う</span>
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        {userAddress?.name && `${userAddress.name}　`}
+                        〒{userAddress?.postalCode}
+                        <br />
+                        {userAddress?.prefecture}{userAddress?.city}{userAddress?.address}
+                        {userAddress?.building && ` ${userAddress.building}`}
+                      </p>
+                    </div>
+                  </label>
+
+                  <label
+                    className={`flex items-start gap-3 p-4 border cursor-pointer transition-colors ${
+                      useRegisteredAddress === false
+                        ? "border-black bg-gray-50"
+                        : "border-gray-200 hover:border-gray-400"
+                    }`}
+                    onClick={() => handleAddressChoice(false)}
+                  >
+                    <input
+                      type="radio"
+                      name="addressChoice"
+                      checked={useRegisteredAddress === false}
+                      onChange={() => handleAddressChoice(false)}
+                      className="mt-1"
+                    />
+                    <div>
+                      <span className="font-medium">別の住所を入力する</span>
+                      <p className="text-sm text-gray-500">
+                        今回のご注文のみ使用します
+                      </p>
+                    </div>
+                  </label>
                 </div>
+              )}
 
-                <div className="md:col-span-2">
+              {/* Address Form */}
+              {(useRegisteredAddress === false || !hasRegisteredAddress) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="md:col-span-2">
+                    <Input
+                      id="name"
+                      label="お名前"
+                      placeholder="山田 太郎"
+                      error={errors.name?.message}
+                      {...register("name")}
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <Input
+                      id="phone"
+                      label="電話番号"
+                      placeholder="090-1234-5678"
+                      error={errors.phone?.message}
+                      {...register("phone")}
+                    />
+                  </div>
+
                   <Input
-                    id="phone"
-                    label="電話番号"
-                    placeholder="090-1234-5678"
-                    error={errors.phone?.message}
-                    {...register("phone")}
+                    id="postalCode"
+                    label="郵便番号"
+                    placeholder="123-4567"
+                    error={errors.postalCode?.message}
+                    {...register("postalCode")}
                   />
-                </div>
 
-                <Input
-                  id="postalCode"
-                  label="郵便番号"
-                  placeholder="123-4567"
-                  error={errors.postalCode?.message}
-                  {...register("postalCode")}
-                />
-
-                <Select
-                  id="prefecture"
-                  label="都道府県"
-                  options={[
-                    { value: "", label: "選択してください" },
-                    ...prefectures.map((p) => ({ value: p, label: p })),
-                  ]}
-                  error={errors.prefecture?.message}
-                  {...register("prefecture")}
-                />
-
-                <div className="md:col-span-2">
-                  <Input
-                    id="city"
-                    label="市区町村"
-                    placeholder="渋谷区渋谷"
-                    error={errors.city?.message}
-                    {...register("city")}
+                  <Select
+                    id="prefecture"
+                    label="都道府県"
+                    options={[
+                      { value: "", label: "選択してください" },
+                      ...prefectures.map((p) => ({ value: p, label: p })),
+                    ]}
+                    error={errors.prefecture?.message}
+                    {...register("prefecture")}
                   />
-                </div>
 
-                <div className="md:col-span-2">
-                  <Input
-                    id="address"
-                    label="番地"
-                    placeholder="1-2-3"
-                    error={errors.address?.message}
-                    {...register("address")}
-                  />
-                </div>
+                  <div className="md:col-span-2">
+                    <Input
+                      id="city"
+                      label="市区町村"
+                      placeholder="渋谷区渋谷"
+                      error={errors.city?.message}
+                      {...register("city")}
+                    />
+                  </div>
 
-                <div className="md:col-span-2">
-                  <Input
-                    id="building"
-                    label="建物名・部屋番号（任意）"
-                    placeholder="○○マンション 101号室"
-                    {...register("building")}
-                  />
+                  <div className="md:col-span-2">
+                    <Input
+                      id="address"
+                      label="番地"
+                      placeholder="1-2-3"
+                      error={errors.address?.message}
+                      {...register("address")}
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <Input
+                      id="building"
+                      label="建物名・部屋番号（任意）"
+                      placeholder="○○マンション 101号室"
+                      {...register("building")}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {/* 登録住所使用時は確認表示 */}
+              {useRegisteredAddress === true && hasRegisteredAddress && (
+                <div className="bg-gray-50 p-4 rounded text-sm">
+                  <p className="text-gray-600 mb-2">以下の住所に配送します：</p>
+                  <p className="font-medium">
+                    {userAddress?.name}
+                    <br />
+                    〒{userAddress?.postalCode}
+                    <br />
+                    {userAddress?.prefecture}{userAddress?.city}{userAddress?.address}
+                    {userAddress?.building && <><br />{userAddress.building}</>}
+                    <br />
+                    TEL: {userAddress?.phone}
+                  </p>
+                  {/* Hidden inputs for form submission */}
+                  <input type="hidden" {...register("name")} />
+                  <input type="hidden" {...register("phone")} />
+                  <input type="hidden" {...register("postalCode")} />
+                  <input type="hidden" {...register("prefecture")} />
+                  <input type="hidden" {...register("city")} />
+                  <input type="hidden" {...register("address")} />
+                  <input type="hidden" {...register("building")} />
+                </div>
+              )}
             </div>
 
             {/* Payment Method */}
