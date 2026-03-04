@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { LayoutDashboard, Package, ShoppingCart, Users, MessageSquare, LogOut } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingCart, Users, MessageSquare, LogOut, Tag, Bookmark } from "lucide-react";
 import { authOptions } from "@/lib/auth";
 
 export const metadata = {
@@ -14,6 +14,8 @@ export const metadata = {
 const sidebarItems = [
   { href: "/admin", icon: LayoutDashboard, label: "ダッシュボード" },
   { href: "/admin/products", icon: Package, label: "商品管理" },
+  { href: "/admin/categories", icon: Tag, label: "カテゴリー管理" },
+  { href: "/admin/brands", icon: Bookmark, label: "ブランド管理" },
   { href: "/admin/orders", icon: ShoppingCart, label: "注文管理" },
   { href: "/admin/members", icon: Users, label: "会員管理" },
   { href: "/admin/inquiries", icon: MessageSquare, label: "問い合わせ" },
