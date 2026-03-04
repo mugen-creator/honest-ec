@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const loginSchema = z.object({
-  email: z.string().email("有効なメールアドレスを入力してください"),
+  identifier: z.string().min(1, "ユーザー名またはメールアドレスを入力してください"),
   password: z.string().min(1, "パスワードを入力してください"),
 });
 
@@ -36,13 +36,13 @@ function LoginForm() {
     setError(null);
 
     const result = await signIn("credentials", {
-      email: data.email,
+      identifier: data.identifier,
       password: data.password,
       redirect: false,
     });
 
     if (result?.error) {
-      setError("メールアドレスまたはパスワードが正しくありません");
+      setError("ユーザー名/メールアドレスまたはパスワードが正しくありません");
       return;
     }
 
@@ -59,12 +59,12 @@ function LoginForm() {
       )}
 
       <Input
-        id="email"
-        type="email"
-        label="メールアドレス"
-        placeholder="your@email.com"
-        error={errors.email?.message}
-        {...register("email")}
+        id="identifier"
+        type="text"
+        label="ユーザー名 または メールアドレス"
+        placeholder="username"
+        error={errors.identifier?.message}
+        {...register("identifier")}
       />
 
       <Input
