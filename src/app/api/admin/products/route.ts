@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendNewArrivalEmail } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +29,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // ブランド名を取得
+    const brand = await prisma.brand.findUnique({
+      where: { id: brandId },
+    });
+
     // 商品を作成
     const product = await prisma.product.create({
       data: {
@@ -52,6 +58,28 @@ export async function POST(request: NextRequest) {
         images: true,
       },
     });
+
+    // 公開された場合、全会員に新着通知を送信
+    if (isPublished) {
+      const customers = await prisma.user.findMany({
+        where: { role: "CUSTOMER" },
+        select: { email: true, name: true },
+      });
+
+      // バックグラウンドで送信（レスポンスをブロックしない）
+      Promise.all(
+        customers.map((customer) =>
+          sendNewArrivalEmail(
+            customer.email,
+            customer.name || "お客様",
+            name,
+            product.id,
+            brand?.name || "",
+            price
+          )
+        )
+      ).catch((err) => console.error("New arrival email error:", err));
+    }
 
     return NextResponse.json({ product }, { status: 201 });
   } catch (error) {

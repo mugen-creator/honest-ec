@@ -429,6 +429,116 @@ export async function sendOrderStatusEmail(
   }
 }
 
+// 再入荷通知メール
+export async function sendRestockNotificationEmail(
+  to: string,
+  productName: string,
+  productId: string
+) {
+  const client = getResend();
+  if (!client) return { success: false, error: "Email service not configured" };
+
+  try {
+    await client.emails.send({
+      from: FROM_EMAIL,
+      to,
+      subject: `【Honest-Maison】${productName}が再入荷しました`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+            Honest-Maison
+          </h1>
+          <p>お知らせをご登録いただいた商品が再入荷しました。</p>
+
+          <div style="background: #f9f9f9; padding: 20px; margin: 20px 0;">
+            <h2 style="margin: 0 0 10px 0; font-size: 18px;">${productName}</h2>
+          </div>
+
+          <p>人気商品のため、お早めにご検討ください。</p>
+
+          <div style="margin: 30px 0;">
+            <a href="https://maison.k-honest.com/products/${productId}"
+               style="background: #000; color: #fff; padding: 12px 24px; text-decoration: none; display: inline-block;">
+              商品を見る
+            </a>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
+          <p style="font-size: 12px; color: #666;">
+            合同会社Honest<br />
+            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            TEL: 03-4500-3763<br />
+            E-mail: info@maison.k-honest.com
+          </p>
+        </div>
+      `,
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("Restock notification email error:", error);
+    return { success: false, error };
+  }
+}
+
+// 新着入荷通知メール
+export async function sendNewArrivalEmail(
+  to: string,
+  customerName: string,
+  productName: string,
+  productId: string,
+  brandName: string,
+  price: number
+) {
+  const client = getResend();
+  if (!client) return { success: false, error: "Email service not configured" };
+
+  try {
+    await client.emails.send({
+      from: FROM_EMAIL,
+      to,
+      subject: `【Honest-Maison】新商品入荷のお知らせ`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+            Honest-Maison
+          </h1>
+          <p>${customerName} 様</p>
+          <p>新しい商品が入荷しました。</p>
+
+          <div style="background: #f9f9f9; padding: 20px; margin: 20px 0;">
+            <p style="margin: 0 0 5px 0; color: #666; font-size: 14px;">${brandName}</p>
+            <h2 style="margin: 0 0 10px 0; font-size: 18px;">${productName}</h2>
+            <p style="margin: 0; font-size: 20px; font-weight: bold;">¥${price.toLocaleString()}</p>
+          </div>
+
+          <div style="margin: 30px 0;">
+            <a href="https://maison.k-honest.com/products/${productId}"
+               style="background: #000; color: #fff; padding: 12px 24px; text-decoration: none; display: inline-block;">
+              商品を見る
+            </a>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
+          <p style="font-size: 12px; color: #666;">
+            合同会社Honest<br />
+            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            TEL: 03-4500-3763<br />
+            E-mail: info@maison.k-honest.com
+          </p>
+          <p style="font-size: 11px; color: #999;">
+            ※このメールは会員の皆様にお送りしています。<br />
+            配信停止をご希望の場合はマイページの設定よりお手続きください。
+          </p>
+        </div>
+      `,
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("New arrival email error:", error);
+    return { success: false, error };
+  }
+}
+
 // 問い合わせ返信メール
 export async function sendInquiryReplyEmail(
   to: string,

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendRestockNotificationEmail } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
 
@@ -83,6 +84,11 @@ export async function PUT(
       where: { productId: id },
     });
 
+    // 再入荷チェック（在庫0→1以上）
+    const wasOutOfStock = existing.stock === 0;
+    const isNowInStock = (stock || 1) > 0;
+    const shouldSendRestockNotification = wasOutOfStock && isNowInStock;
+
     // 商品を更新
     const product = await prisma.product.update({
       where: { id },
@@ -108,6 +114,21 @@ export async function PUT(
         images: true,
       },
     });
+
+    // 再入荷通知を送信
+    if (shouldSendRestockNotification && isPublished) {
+      const notifications = await prisma.restockNotification.findMany({
+        where: { productId: id, notified: false },
+      });
+
+      for (const notification of notifications) {
+        await sendRestockNotificationEmail(notification.email, name, id);
+        await prisma.restockNotification.update({
+          where: { id: notification.id },
+          data: { notified: true },
+        });
+      }
+    }
 
     return NextResponse.json({ product });
   } catch (error) {
