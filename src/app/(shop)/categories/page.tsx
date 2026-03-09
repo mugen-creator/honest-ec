@@ -6,7 +6,7 @@ export const metadata = {
   description: "Honest-Maisonの商品カテゴリー一覧です。",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60; // 60秒キャッシュ
 
 export default async function CategoriesPage() {
   const categories = await prisma.category.findMany({

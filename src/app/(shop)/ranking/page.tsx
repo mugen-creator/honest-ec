@@ -6,7 +6,7 @@ export const metadata = {
   description: "Honest-Maisonの人気商品ランキングです。",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60; // 60秒キャッシュ
 
 export default async function RankingPage() {
   // 注文数が多い順に商品を取得

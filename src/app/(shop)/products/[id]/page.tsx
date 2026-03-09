@@ -18,7 +18,7 @@ interface ProductDetailPageProps {
   params: Promise<{ id: string }>;
 }
 
-export const dynamic = "force-dynamic";
+export const revalidate = 30; // 30秒キャッシュ
 
 export async function generateMetadata({ params }: ProductDetailPageProps) {
   const { id } = await params;

@@ -20,7 +20,7 @@ export const metadata = {
   description: "Honest-Maisonの商品一覧ページです。高級時計、ブランドバッグ、アクセサリーを取り揃えております。",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 30; // 30秒キャッシュ
 
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
   const params = await searchParams;
