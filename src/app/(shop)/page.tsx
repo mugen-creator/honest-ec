@@ -90,7 +90,7 @@ export default function HomePage() {
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800')`,
+                  backgroundImage: `url('/moncler.jpg')`,
                 }}
               />
               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
@@ -110,7 +110,7 @@ export default function HomePage() {
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800')`,
+                  backgroundImage: `url('/daytona.webp')`,
                 }}
               />
               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
@@ -130,7 +130,7 @@ export default function HomePage() {
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800')`,
+                  backgroundImage: `url('/hermes.webp')`,
                 }}
               />
               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
@@ -150,7 +150,7 @@ export default function HomePage() {
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800')`,
+                  backgroundImage: `url('/cartier.avif')`,
                 }}
               />
               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
