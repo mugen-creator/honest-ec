@@ -14,7 +14,7 @@ interface Banner {
 }
 
 const defaultImages = [
-  "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1920",
+  "https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?w=1920",
   "/hermes.webp",
   "/cartier.avif",
   "/daytona.webp",
