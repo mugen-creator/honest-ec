@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Loader2, Upload } from "lucide-react";
+import { upload } from "@vercel/blob/client";
 
 interface Banner {
   id: string;
@@ -35,20 +36,21 @@ export function BannerForm({ banner }: BannerFormProps) {
     setError("");
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
+      // ファイルサイズチェック (10MB以下)
+      if (file.size > 10 * 1024 * 1024) {
+        setError("ファイルサイズは10MB以下にしてください");
+        return;
+      }
 
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
+      // クライアントサイドアップロード
+      const blob = await upload(file.name, file, {
+        access: "public",
+        handleUploadUrl: "/api/upload",
       });
 
-      if (!res.ok) throw new Error("Upload failed");
-
-      const data = await res.json();
-      setImageUrl(data.url);
+      setImageUrl(blob.url);
     } catch (err) {
-      setError("画像のアップロードに失敗しました");
+      setError(err instanceof Error ? err.message : "画像のアップロードに失敗しました");
     } finally {
       setUploading(false);
     }

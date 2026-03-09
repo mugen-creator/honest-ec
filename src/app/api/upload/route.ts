@@ -1,46 +1,39 @@
-import { put } from "@vercel/blob";
+import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+// クライアントサイドアップロード用のトークン生成
 export async function POST(request: NextRequest) {
+  const body = (await request.json()) as HandleUploadBody;
+
   try {
-    const formData = await request.formData();
-    const file = formData.get("file") as File;
+    const jsonResponse = await handleUpload({
+      body,
+      request,
+      onBeforeGenerateToken: async (pathname) => {
+        // ファイル形式チェック
+        const allowedExtensions = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
+        const ext = pathname.toLowerCase().slice(pathname.lastIndexOf("."));
+        if (!allowedExtensions.includes(ext)) {
+          throw new Error("JPEG, PNG, WebP, GIF形式の画像のみアップロード可能です");
+        }
 
-    if (!file) {
-      return NextResponse.json(
-        { error: "ファイルが選択されていません" },
-        { status: 400 }
-      );
-    }
-
-    // ファイルサイズチェック (10MB以下)
-    if (file.size > 10 * 1024 * 1024) {
-      return NextResponse.json(
-        { error: "ファイルサイズは10MB以下にしてください" },
-        { status: 400 }
-      );
-    }
-
-    // ファイル形式チェック
-    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-    if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json(
-        { error: "JPEG, PNG, WebP, GIF形式の画像のみアップロード可能です" },
-        { status: 400 }
-      );
-    }
-
-    const blob = await put(file.name, file, {
-      access: "public",
+        return {
+          allowedContentTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
+          maximumSizeInBytes: 10 * 1024 * 1024, // 10MB
+        };
+      },
+      onUploadCompleted: async ({ blob }) => {
+        console.log("Upload completed:", blob.url);
+      },
     });
 
-    return NextResponse.json({ url: blob.url });
+    return NextResponse.json(jsonResponse);
   } catch (error) {
     console.error("Upload error:", error);
     return NextResponse.json(
-      { error: "アップロードに失敗しました" },
+      { error: error instanceof Error ? error.message : "アップロードに失敗しました" },
       { status: 500 }
     );
   }

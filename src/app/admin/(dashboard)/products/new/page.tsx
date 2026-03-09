@@ -8,6 +8,7 @@ import { ChevronLeft, Upload, X, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { upload } from "@vercel/blob/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -86,25 +87,23 @@ export default function NewProductPage() {
     setIsUploading(true);
     try {
       for (const file of Array.from(files)) {
-        const formData = new FormData();
-        formData.append("file", file);
+        // ファイルサイズチェック (10MB以下)
+        if (file.size > 10 * 1024 * 1024) {
+          alert("ファイルサイズは10MB以下にしてください");
+          continue;
+        }
 
-        const response = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
+        // クライアントサイドアップロード
+        const blob = await upload(file.name, file, {
+          access: "public",
+          handleUploadUrl: "/api/upload",
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          setImageUrls((prev) => [...prev, data.url]);
-        } else {
-          const error = await response.json();
-          alert(error.error || "アップロードに失敗しました");
-        }
+        setImageUrls((prev) => [...prev, blob.url]);
       }
     } catch (error) {
       console.error("Upload error:", error);
-      alert("アップロードに失敗しました");
+      alert(error instanceof Error ? error.message : "アップロードに失敗しました");
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) {
