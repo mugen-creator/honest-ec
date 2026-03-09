@@ -30,14 +30,61 @@ export const fonts = {
   shippori: shipporiMincho.className,
 };
 
+const siteUrl = "https://maison.k-honest.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Honest-Maison | 高級ブランド品・時計専門店",
     template: "%s | Honest-Maison",
   },
   description:
     "Honest-Maisonは、厳選された高級ブランド品・時計を誠実な価格でお届けするオンラインショップです。全品正規品保証・送料無料。",
-  keywords: ["高級時計", "ブランド品", "中古時計", "ロレックス", "エルメス", "ルイヴィトン"],
+  keywords: ["高級時計", "ブランド品", "中古時計", "ロレックス", "エルメス", "ルイヴィトン", "カルティエ", "オメガ"],
+  authors: [{ name: "合同会社Honest" }],
+  creator: "合同会社Honest",
+  publisher: "合同会社Honest",
+  formatDetection: {
+    telephone: true,
+    email: true,
+  },
+  openGraph: {
+    type: "website",
+    locale: "ja_JP",
+    url: siteUrl,
+    siteName: "Honest-Maison",
+    title: "Honest-Maison | 高級ブランド品・時計専門店",
+    description: "厳選された高級ブランド品・時計を誠実な価格でお届け。全品正規品保証・送料無料。",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Honest-Maison",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Honest-Maison | 高級ブランド品・時計専門店",
+    description: "厳選された高級ブランド品・時計を誠実な価格でお届け。全品正規品保証・送料無料。",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    // Google Search Consoleの認証コードがあれば設定
+    // google: "xxxxx",
+  },
 };
 
 export default function RootLayout({

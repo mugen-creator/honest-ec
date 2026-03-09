@@ -24,15 +24,31 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
   const { id } = await params;
   const product = await prisma.product.findUnique({
     where: { id },
+    include: { brand: true, images: true },
   });
 
   if (!product) {
     return { title: "商品が見つかりません" };
   }
 
+  const description = `${product.brand.name}の${product.name}。${product.description.substring(0, 100)}`;
+  const imageUrl = product.images[0]?.url || "/og-image.png";
+
   return {
     title: product.name,
-    description: product.description.substring(0, 160),
+    description,
+    openGraph: {
+      title: `${product.name} | Honest-Maison`,
+      description,
+      images: [{ url: imageUrl }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | Honest-Maison`,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 
@@ -67,7 +83,36 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     },
   });
 
+  // 構造化データ（JSON-LD）
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: product.images.map((img) => img.url),
+    brand: {
+      "@type": "Brand",
+      name: product.brand.name,
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://maison.k-honest.com/products/${product.id}`,
+      priceCurrency: "JPY",
+      price: product.price,
+      availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      seller: {
+        "@type": "Organization",
+        name: "Honest-Maison",
+      },
+    },
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500 mb-6 sm:mb-8 overflow-x-auto whitespace-nowrap pb-2">
@@ -230,5 +275,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       {/* Track View */}
       <TrackView product={product} />
     </div>
+    </>
   );
 }
