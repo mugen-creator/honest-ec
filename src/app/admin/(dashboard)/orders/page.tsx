@@ -68,7 +68,7 @@ export default async function AdminOrdersPage() {
                     <span>{new Date(order.createdAt).toLocaleString("ja-JP")}</span>
                     <Link
                       href={`/admin/orders/${order.id}`}
-                      className="flex items-center gap-1 text-amber-600 hover:underline"
+                      className="flex items-center gap-1 text-cyan-600 hover:underline"
                     >
                       <Eye className="w-4 h-4" />
                       詳細

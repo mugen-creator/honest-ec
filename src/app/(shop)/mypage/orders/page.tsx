@@ -71,7 +71,7 @@ export default async function OrdersPage() {
           <p className="text-gray-500 mb-4">注文履歴がありません</p>
           <Link
             href="/products"
-            className="text-amber-600 hover:underline font-medium"
+            className="text-cyan-600 hover:underline font-medium"
           >
             商品を見る →
           </Link>
@@ -121,7 +121,7 @@ export default async function OrdersPage() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-amber-600">{item.product.brand.name}</p>
+                      <p className="text-xs text-cyan-600">{item.product.brand.name}</p>
                       <Link
                         href={`/products/${item.product.id}`}
                         className="font-medium hover:underline line-clamp-1"

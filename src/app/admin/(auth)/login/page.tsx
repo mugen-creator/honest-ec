@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-white">
             Honest-Maison
-            <span className="text-amber-500 ml-2 text-lg font-normal">Admin</span>
+            <span className="text-cyan-500 ml-2 text-lg font-normal">Admin</span>
           </h1>
         </div>
 
@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                 placeholder="admin"
                 required
               />
@@ -82,7 +82,7 @@ export default function AdminLoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                 placeholder="••••••••"
                 required
               />
@@ -91,7 +91,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2 px-4 bg-amber-600 text-white font-medium rounded hover:bg-amber-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-2 px-4 bg-cyan-600 text-white font-medium rounded hover:bg-cyan-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "ログイン中..." : "ログイン"}
             </button>

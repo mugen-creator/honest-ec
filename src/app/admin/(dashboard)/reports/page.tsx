@@ -222,9 +222,9 @@ export default async function ReportsPage() {
                   <tr key={item.product.id} className="border-b last:border-0">
                     <td className="py-3">
                       <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
-                        index === 0 ? "bg-amber-400 text-white" :
+                        index === 0 ? "bg-cyan-400 text-white" :
                         index === 1 ? "bg-gray-300 text-gray-700" :
-                        index === 2 ? "bg-amber-600 text-white" :
+                        index === 2 ? "bg-cyan-600 text-white" :
                         "bg-gray-100 text-gray-600"
                       }`}>
                         {index + 1}

@@ -114,7 +114,7 @@ export function BannerForm({ banner }: BannerFormProps) {
           name="title"
           defaultValue={banner?.title}
           required
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
         />
       </div>
 
@@ -124,7 +124,7 @@ export function BannerForm({ banner }: BannerFormProps) {
           type="text"
           name="subtitle"
           defaultValue={banner?.subtitle || ""}
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
         />
       </div>
 
@@ -171,7 +171,7 @@ export function BannerForm({ banner }: BannerFormProps) {
             name="linkUrl"
             defaultValue={banner?.linkUrl || ""}
             placeholder="/products"
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
           />
         </div>
         <div>
@@ -181,7 +181,7 @@ export function BannerForm({ banner }: BannerFormProps) {
             name="linkText"
             defaultValue={banner?.linkText || ""}
             placeholder="商品を見る"
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
           />
         </div>
       </div>
@@ -192,7 +192,7 @@ export function BannerForm({ banner }: BannerFormProps) {
           type="number"
           name="sortOrder"
           defaultValue={banner?.sortOrder || 0}
-          className="w-24 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-24 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
         />
         <p className="text-xs text-gray-500 mt-1">小さい数字が先に表示されます</p>
       </div>
@@ -203,7 +203,7 @@ export function BannerForm({ banner }: BannerFormProps) {
             type="checkbox"
             name="isActive"
             defaultChecked={banner?.isActive ?? true}
-            className="w-4 h-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
+            className="w-4 h-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
           />
           <span className="text-sm font-medium">公開する</span>
         </label>
@@ -213,7 +213,7 @@ export function BannerForm({ banner }: BannerFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+          className="px-6 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors disabled:opacity-50 flex items-center gap-2"
         >
           {loading && <Loader2 className="w-4 h-4 animate-spin" />}
           {banner ? "更新する" : "追加する"}

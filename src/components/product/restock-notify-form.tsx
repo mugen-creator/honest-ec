@@ -58,7 +58,7 @@ export function RestockNotifyForm({ productId, productName }: RestockNotifyFormP
   return (
     <div className="bg-gray-50 border border-gray-200 p-4">
       <div className="flex items-center gap-2 mb-3">
-        <Bell className="w-5 h-5 text-amber-600" />
+        <Bell className="w-5 h-5 text-cyan-600" />
         <span className="font-medium text-sm">再入荷通知を受け取る</span>
       </div>
       <p className="text-xs text-gray-500 mb-3">
@@ -71,7 +71,7 @@ export function RestockNotifyForm({ productId, productName }: RestockNotifyFormP
           onChange={(e) => setEmail(e.target.value)}
           placeholder="メールアドレス"
           required
-          className="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-amber-600"
+          className="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-cyan-600"
         />
         {status === "error" && (
           <p className="text-xs text-red-600">{message}</p>
@@ -79,7 +79,7 @@ export function RestockNotifyForm({ productId, productName }: RestockNotifyFormP
         <button
           type="submit"
           disabled={status === "loading" || !email}
-          className="w-full py-2 bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full py-2 bg-cyan-600 text-white text-sm font-medium hover:bg-cyan-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {status === "loading" ? (
             <>

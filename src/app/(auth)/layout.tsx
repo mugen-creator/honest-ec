@@ -12,7 +12,7 @@ export default function AuthLayout({
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-center">
           <Link href="/" className="text-xl font-bold tracking-wider">
             <span className="text-black">Honest</span>
-            <span className="text-amber-600">-</span>
+            <span className="text-cyan-600">-</span>
             <span className="text-black">Maison</span>
           </Link>
         </div>

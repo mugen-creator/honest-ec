@@ -37,8 +37,8 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4">
           <AnimatedSection stagger className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-amber-50 rounded-full">
-                <Shield className="w-8 h-8 text-amber-600" />
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-cyan-50 rounded-full">
+                <Shield className="w-8 h-8 text-cyan-600" />
               </div>
               <h3 className="text-lg font-bold mb-2">正規品保証</h3>
               <p className="text-gray-600 text-sm">
@@ -48,8 +48,8 @@ export default function HomePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-amber-50 rounded-full">
-                <Truck className="w-8 h-8 text-amber-600" />
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-cyan-50 rounded-full">
+                <Truck className="w-8 h-8 text-cyan-600" />
               </div>
               <h3 className="text-lg font-bold mb-2">全国送料無料</h3>
               <p className="text-gray-600 text-sm">
@@ -59,8 +59,8 @@ export default function HomePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-amber-50 rounded-full">
-                <Award className="w-8 h-8 text-amber-600" />
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-cyan-50 rounded-full">
+                <Award className="w-8 h-8 text-cyan-600" />
               </div>
               <h3 className="text-lg font-bold mb-2">アフターサポート</h3>
               <p className="text-gray-600 text-sm">

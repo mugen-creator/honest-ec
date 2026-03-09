@@ -114,7 +114,7 @@ export default async function AdminProductsPage() {
                   <td className="px-6 py-4 text-right">
                     <Link
                       href={`/admin/products/${product.id}`}
-                      className="text-amber-600 hover:text-amber-700 text-sm font-medium"
+                      className="text-cyan-600 hover:text-cyan-700 text-sm font-medium"
                     >
                       <Edit className="w-4 h-4 inline mr-1" />
                       編集

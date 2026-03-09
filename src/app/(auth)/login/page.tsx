@@ -106,7 +106,7 @@ export default function LoginPage() {
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-600">
           アカウントをお持ちでない方は{" "}
-          <Link href="/register" className="text-amber-600 hover:underline">
+          <Link href="/register" className="text-cyan-600 hover:underline">
             会員登録
           </Link>
         </p>

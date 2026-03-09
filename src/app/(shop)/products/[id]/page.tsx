@@ -99,7 +99,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           {/* Brand */}
           <Link
             href={`/products?brand=${product.brand.slug}`}
-            className="text-amber-600 text-sm font-medium hover:underline"
+            className="text-cyan-600 text-sm font-medium hover:underline"
           >
             {product.brand.name}
           </Link>
@@ -142,15 +142,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           {/* Features */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 pb-8 border-b">
             <div className="flex items-center gap-3">
-              <Shield className="w-5 h-5 text-amber-600" />
+              <Shield className="w-5 h-5 text-cyan-600" />
               <span className="text-sm">正規品保証</span>
             </div>
             <div className="flex items-center gap-3">
-              <Truck className="w-5 h-5 text-amber-600" />
+              <Truck className="w-5 h-5 text-cyan-600" />
               <span className="text-sm">送料無料</span>
             </div>
             <div className="flex items-center gap-3">
-              <RotateCcw className="w-5 h-5 text-amber-600" />
+              <RotateCcw className="w-5 h-5 text-cyan-600" />
               <span className="text-sm">返品対応</span>
             </div>
           </div>
@@ -200,7 +200,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             </p>
             <Link
               href={`/contact?product=${product.id}`}
-              className="text-sm text-amber-600 hover:underline font-medium"
+              className="text-sm text-cyan-600 hover:underline font-medium"
             >
               お問い合わせフォームへ →
             </Link>

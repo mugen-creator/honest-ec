@@ -15,7 +15,7 @@ const statusLabels: Record<string, string> = {
 };
 
 const statusColors: Record<string, string> = {
-  PENDING: "bg-amber-100 text-amber-800",
+  PENDING: "bg-cyan-100 text-amber-800",
   REPLIED: "bg-blue-100 text-blue-800",
   CLOSED: "bg-gray-100 text-gray-800",
 };
@@ -36,7 +36,7 @@ export default async function AdminInquiriesPage() {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">問い合わせ管理</h1>
         {pendingCount > 0 && (
-          <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">
+          <span className="bg-cyan-100 text-amber-800 px-3 py-1 rounded-full text-sm">
             未対応: {pendingCount}件
           </span>
         )}
@@ -53,7 +53,7 @@ export default async function AdminInquiriesPage() {
               <div
                 key={inquiry.id}
                 className={`p-4 hover:bg-gray-50 ${
-                  inquiry.status === "PENDING" ? "bg-amber-50" : ""
+                  inquiry.status === "PENDING" ? "bg-cyan-50" : ""
                 }`}
               >
                 <div className="flex flex-wrap items-start justify-between gap-4">
@@ -76,7 +76,7 @@ export default async function AdminInquiriesPage() {
                       {inquiry.message}
                     </p>
                     {inquiry.product && (
-                      <div className="mt-2 text-xs text-amber-600">
+                      <div className="mt-2 text-xs text-cyan-600">
                         関連商品: {inquiry.product.name}
                       </div>
                     )}
@@ -87,7 +87,7 @@ export default async function AdminInquiriesPage() {
                     </div>
                     <Link
                       href={`/admin/inquiries/${inquiry.id}`}
-                      className="flex items-center gap-1 text-amber-600 hover:underline text-sm"
+                      className="flex items-center gap-1 text-cyan-600 hover:underline text-sm"
                     >
                       <Eye className="w-4 h-4" />
                       詳細・返信

@@ -33,23 +33,23 @@ export function Header() {
           <Link href="/" className="flex items-center">
             <h1 className="font-display text-xl lg:text-2xl font-semibold tracking-wide">
               <span className="text-black">Honest</span>
-              <span className="text-amber-600">-</span>
+              <span className="text-cyan-600">-</span>
               <span className="text-black">Maison</span>
             </h1>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            <Link href="/products?sort=newest" className="font-display text-sm tracking-wide hover:text-amber-600 transition-colors">
+            <Link href="/products?sort=newest" className="font-display text-sm tracking-wide hover:text-cyan-600 transition-colors">
               NEW ARRIVALS
             </Link>
-            <Link href="/ranking" className="font-display text-sm tracking-wide hover:text-amber-600 transition-colors">
+            <Link href="/ranking" className="font-display text-sm tracking-wide hover:text-cyan-600 transition-colors">
               RANKING
             </Link>
-            <Link href="/brands" className="font-display text-sm tracking-wide hover:text-amber-600 transition-colors">
+            <Link href="/brands" className="font-display text-sm tracking-wide hover:text-cyan-600 transition-colors">
               BRANDS
             </Link>
-            <Link href="/categories" className="font-display text-sm tracking-wide hover:text-amber-600 transition-colors">
+            <Link href="/categories" className="font-display text-sm tracking-wide hover:text-cyan-600 transition-colors">
               CATEGORY
             </Link>
           </nav>
@@ -58,16 +58,16 @@ export function Header() {
           <div className="flex items-center gap-2 sm:gap-4">
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="p-2 hover:text-amber-600 transition-colors"
+              className="p-2 hover:text-cyan-600 transition-colors"
               aria-label="検索"
             >
               <Search className="w-5 h-5" />
             </button>
-            <Link href="/mypage/favorites" className="p-2 hover:text-amber-600 transition-colors" aria-label="お気に入り">
+            <Link href="/mypage/favorites" className="p-2 hover:text-cyan-600 transition-colors" aria-label="お気に入り">
               <Heart className="w-5 h-5" />
             </Link>
             <CartIcon />
-            <Link href="/mypage" className="p-2 hover:text-amber-600 transition-colors" aria-label="マイページ">
+            <Link href="/mypage" className="p-2 hover:text-cyan-600 transition-colors" aria-label="マイページ">
               <User className="w-5 h-5" />
             </Link>
           </div>

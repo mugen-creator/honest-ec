@@ -27,7 +27,7 @@ export async function sendWelcomeEmail(to: string, name: string) {
       subject: "【Honest-Maison】会員登録ありがとうございます",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0891b2; padding-bottom: 10px;">
             Honest-Maison
           </h1>
           <p>${name} 様</p>
@@ -76,7 +76,7 @@ export async function sendContactConfirmEmail(
       subject: "【Honest-Maison】お問い合わせを受け付けました",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0891b2; padding-bottom: 10px;">
             Honest-Maison
           </h1>
           <p>${name} 様</p>
@@ -174,7 +174,7 @@ export async function sendPasswordResetEmail(to: string, name: string, resetToke
       subject: "【Honest-Maison】パスワード再設定のご案内",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0891b2; padding-bottom: 10px;">
             Honest-Maison
           </h1>
           <p>${name} 様</p>
@@ -222,7 +222,7 @@ export async function sendPasswordChangedEmail(to: string, name: string) {
       subject: "【Honest-Maison】パスワードが変更されました",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0891b2; padding-bottom: 10px;">
             Honest-Maison
           </h1>
           <p>${name} 様</p>
@@ -273,7 +273,7 @@ export async function sendOrderConfirmEmail(
   const bankInfo =
     paymentMethod === "bank_transfer"
       ? `
-        <div style="background: #fef3c7; padding: 20px; margin: 20px 0; border-left: 4px solid #d97706;">
+        <div style="background: #fef3c7; padding: 20px; margin: 20px 0; border-left: 4px solid #0891b2;">
           <h3 style="margin: 0 0 10px 0;">お振込先</h3>
           <p style="margin: 0; font-size: 14px;">
             住信SBIネット銀行 法人第一支店（106）<br />
@@ -293,7 +293,7 @@ export async function sendOrderConfirmEmail(
       subject: "【Honest-Maison】ご注文ありがとうございます",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0891b2; padding-bottom: 10px;">
             Honest-Maison
           </h1>
           <p>${name} 様</p>
@@ -362,7 +362,7 @@ export async function sendOrderStatusEmail(
         <p>お届けまで今しばらくお待ちください。</p>
         <div style="margin: 20px 0;">
           <a href="https://www.kuronekoyamato.co.jp/ytc/ja/support/inquiry/"
-             style="color: #d97706; text-decoration: underline;">
+             style="color: #0891b2; text-decoration: underline;">
             ヤマト運輸で配送状況を確認する
           </a>
         </div>
@@ -397,7 +397,7 @@ export async function sendOrderStatusEmail(
       subject: statusInfo.subject,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0891b2; padding-bottom: 10px;">
             Honest-Maison
           </h1>
           <p>${name} 様</p>
@@ -445,7 +445,7 @@ export async function sendRestockNotificationEmail(
       subject: `【Honest-Maison】${productName}が再入荷しました`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0891b2; padding-bottom: 10px;">
             Honest-Maison
           </h1>
           <p>お知らせをご登録いただいた商品が再入荷しました。</p>
@@ -499,7 +499,7 @@ export async function sendNewArrivalEmail(
       subject: `【Honest-Maison】新商品入荷のお知らせ`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0891b2; padding-bottom: 10px;">
             Honest-Maison
           </h1>
           <p>${customerName} 様</p>
@@ -555,14 +555,14 @@ export async function sendInquiryReplyEmail(
       subject: "【Honest-Maison】お問い合わせへのご回答",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 2px solid #d97706; padding-bottom: 10px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0891b2; padding-bottom: 10px;">
             Honest-Maison
           </h1>
           <p>${name} 様</p>
           <p>お問い合わせいただきありがとうございます。</p>
           <p>以下の通りご回答いたします。</p>
 
-          <div style="background: #f9f9f9; padding: 20px; margin: 20px 0; border-left: 4px solid #d97706;">
+          <div style="background: #f9f9f9; padding: 20px; margin: 20px 0; border-left: 4px solid #0891b2;">
             ${reply.replace(/\n/g, "<br />")}
           </div>
 

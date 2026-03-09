@@ -37,7 +37,7 @@ export function SalesChart({ data }: SalesChartProps) {
           >
             <div
               className={`w-full rounded-t transition-all cursor-pointer ${
-                hoveredIndex === index ? "bg-amber-500" : "bg-amber-400"
+                hoveredIndex === index ? "bg-cyan-500" : "bg-cyan-400"
               }`}
               style={{
                 height: `${(item.amount / maxAmount) * 100}%`,
@@ -64,13 +64,13 @@ export function SalesChart({ data }: SalesChartProps) {
       {/* Summary */}
       <div className="flex justify-center gap-8 mt-4 pt-4 border-t">
         <div className="text-center">
-          <p className="text-2xl font-bold text-amber-600">
+          <p className="text-2xl font-bold text-cyan-600">
             {formatPrice(data.reduce((sum, d) => sum + d.amount, 0))}
           </p>
           <p className="text-xs text-gray-500">合計売上</p>
         </div>
         <div className="text-center">
-          <p className="text-2xl font-bold text-amber-600">
+          <p className="text-2xl font-bold text-cyan-600">
             {data.reduce((sum, d) => sum + d.count, 0)}件
           </p>
           <p className="text-xs text-gray-500">合計注文数</p>

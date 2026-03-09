@@ -17,7 +17,7 @@ const statusLabels: Record<string, string> = {
 };
 
 const statusColors: Record<string, string> = {
-  PENDING: "bg-amber-100 text-amber-800",
+  PENDING: "bg-cyan-100 text-amber-800",
   REPLIED: "bg-blue-100 text-blue-800",
   CLOSED: "bg-gray-100 text-gray-800",
 };
@@ -130,7 +130,7 @@ export default async function AdminInquiryDetailPage({ params }: InquiryDetailPa
               <div>
                 <dt className="text-gray-500">メールアドレス</dt>
                 <dd>
-                  <a href={`mailto:${inquiry.email}`} className="text-amber-600 hover:underline">
+                  <a href={`mailto:${inquiry.email}`} className="text-cyan-600 hover:underline">
                     {inquiry.email}
                   </a>
                 </dd>
@@ -141,7 +141,7 @@ export default async function AdminInquiryDetailPage({ params }: InquiryDetailPa
                   <dd>
                     <Link
                       href={`/admin/members/${inquiry.user.id}`}
-                      className="text-amber-600 hover:underline"
+                      className="text-cyan-600 hover:underline"
                     >
                       会員情報を見る
                     </Link>

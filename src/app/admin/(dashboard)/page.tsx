@@ -28,7 +28,7 @@ const inquiryStatusLabels: Record<string, string> = {
 };
 
 const inquiryStatusColors: Record<string, string> = {
-  PENDING: "bg-amber-100 text-amber-800",
+  PENDING: "bg-cyan-100 text-amber-800",
   REPLIED: "bg-blue-100 text-blue-800",
   CLOSED: "bg-gray-100 text-gray-800",
 };
@@ -79,7 +79,7 @@ export default async function AdminDashboard() {
     { label: "商品数", value: productCount.toString(), icon: Package, color: "bg-blue-500", href: "/admin/products" },
     { label: "注文数", value: orderCount.toString(), icon: ShoppingCart, color: "bg-green-500", href: "/admin/orders" },
     { label: "会員数", value: userCount.toString(), icon: Users, color: "bg-purple-500", href: "/admin/members" },
-    { label: "未対応の問い合わせ", value: inquiryCount.toString(), icon: MessageSquare, color: "bg-amber-500", href: "/admin/inquiries" },
+    { label: "未対応の問い合わせ", value: inquiryCount.toString(), icon: MessageSquare, color: "bg-cyan-500", href: "/admin/inquiries" },
   ];
 
   return (
@@ -119,7 +119,7 @@ export default async function AdminDashboard() {
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold">最近の注文</h2>
-            <Link href="/admin/orders" className="text-amber-600 hover:underline text-sm flex items-center gap-1">
+            <Link href="/admin/orders" className="text-cyan-600 hover:underline text-sm flex items-center gap-1">
               すべて見る <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -156,7 +156,7 @@ export default async function AdminDashboard() {
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold">最近の問い合わせ</h2>
-            <Link href="/admin/inquiries" className="text-amber-600 hover:underline text-sm flex items-center gap-1">
+            <Link href="/admin/inquiries" className="text-cyan-600 hover:underline text-sm flex items-center gap-1">
               すべて見る <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -169,7 +169,7 @@ export default async function AdminDashboard() {
                   key={inquiry.id}
                   href={`/admin/inquiries/${inquiry.id}`}
                   className={`block p-3 border rounded hover:bg-gray-50 transition-colors ${
-                    inquiry.status === "PENDING" ? "border-amber-300 bg-amber-50" : ""
+                    inquiry.status === "PENDING" ? "border-amber-300 bg-cyan-50" : ""
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">

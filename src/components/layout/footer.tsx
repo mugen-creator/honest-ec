@@ -8,7 +8,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1">
             <h2 className="font-display text-xl font-semibold tracking-wide mb-4">
-              Honest<span className="text-amber-500">-</span>Maison
+              Honest<span className="text-cyan-500">-</span>Maison
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed tracking-wide">
               厳選された高級ブランド品を、

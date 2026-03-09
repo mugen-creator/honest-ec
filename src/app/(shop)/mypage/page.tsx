@@ -54,8 +54,8 @@ export default async function MyPage() {
             href={item.href}
             className="block p-6 border border-gray-200 hover:border-black transition-colors group"
           >
-            <item.icon className="w-8 h-8 mb-4 text-amber-600" />
-            <h2 className="font-bold mb-1 group-hover:text-amber-600 transition-colors">
+            <item.icon className="w-8 h-8 mb-4 text-cyan-600" />
+            <h2 className="font-bold mb-1 group-hover:text-cyan-600 transition-colors">
               {item.title}
             </h2>
             <p className="text-sm text-gray-500">{item.description}</p>

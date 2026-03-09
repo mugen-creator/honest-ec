@@ -65,7 +65,7 @@ export default async function SettingsPage() {
             </div>
             <Link
               href="/mypage/settings/password"
-              className="text-sm text-amber-600 hover:underline"
+              className="text-sm text-cyan-600 hover:underline"
             >
               変更する
             </Link>

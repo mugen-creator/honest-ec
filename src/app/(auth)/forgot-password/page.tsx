@@ -61,7 +61,7 @@ export default function ForgotPasswordPage() {
           <p className="text-sm text-gray-500 mb-4">
             ※メールが届かない場合は、迷惑メールフォルダをご確認ください。
           </p>
-          <Link href="/login" className="text-amber-600 hover:underline">
+          <Link href="/login" className="text-cyan-600 hover:underline">
             ログインページに戻る
           </Link>
         </div>
@@ -95,7 +95,7 @@ export default function ForgotPasswordPage() {
         </form>
 
         <p className="text-center mt-6">
-          <Link href="/login" className="text-amber-600 hover:underline text-sm">
+          <Link href="/login" className="text-cyan-600 hover:underline text-sm">
             ログインページに戻る
           </Link>
         </p>

@@ -32,7 +32,7 @@ function StarRating({ rating, size = "md" }: { rating: number; size?: "sm" | "md
         <Star
           key={star}
           className={`${sizeClass} ${
-            star <= rating ? "fill-amber-400 text-amber-400" : "text-gray-300"
+            star <= rating ? "fill-cyan-400 text-cyan-400" : "text-gray-300"
           }`}
         />
       ))}

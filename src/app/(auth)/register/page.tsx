@@ -149,7 +149,7 @@ export default function RegisterPage() {
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-600">
           すでにアカウントをお持ちの方は{" "}
-          <Link href="/login" className="text-amber-600 hover:underline">
+          <Link href="/login" className="text-cyan-600 hover:underline">
             ログイン
           </Link>
         </p>

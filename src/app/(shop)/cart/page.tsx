@@ -52,12 +52,12 @@ export default function CartPage() {
 
               {/* Info */}
               <div className="flex-1 min-w-0">
-                <p className="text-xs text-amber-600 font-medium">
+                <p className="text-xs text-cyan-600 font-medium">
                   {product.brand.name}
                 </p>
                 <Link
                   href={`/products/${product.id}`}
-                  className="font-medium hover:text-amber-600 line-clamp-2"
+                  className="font-medium hover:text-cyan-600 line-clamp-2"
                 >
                   {product.name}
                 </Link>

@@ -43,7 +43,7 @@ export default async function BrandsPage() {
             href={`/products?brand=${brand.slug}`}
             className="group border border-gray-200 p-6 hover:border-black transition-colors"
           >
-            <h2 className="font-serif-jp font-medium text-lg tracking-wide group-hover:text-amber-600 transition-colors">
+            <h2 className="font-serif-jp font-medium text-lg tracking-wide group-hover:text-cyan-600 transition-colors">
               {brand.name}
             </h2>
             <p className="text-sm text-gray-500 mt-1">

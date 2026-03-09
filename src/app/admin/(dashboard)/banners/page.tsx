@@ -30,7 +30,7 @@ export default async function BannersPage() {
         <h1 className="text-2xl font-bold">バナー管理</h1>
         <Link
           href="/admin/banners/new"
-          className="flex items-center gap-2 px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors"
         >
           <Plus className="w-4 h-4" />
           新規追加
@@ -84,7 +84,7 @@ export default async function BannersPage() {
                       <p className="text-sm text-gray-500 truncate">{banner.subtitle}</p>
                     )}
                     {banner.linkUrl && (
-                      <p className="text-xs text-amber-600 truncate">{banner.linkUrl}</p>
+                      <p className="text-xs text-cyan-600 truncate">{banner.linkUrl}</p>
                     )}
                   </div>
 

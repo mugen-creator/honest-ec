@@ -123,7 +123,7 @@ export default async function AdminOrderDetailPage({ params }: OrderDetailPagePr
                     )}
                   </div>
                   <div className="flex-1">
-                    <p className="text-xs text-amber-600">{item.product.brand.name}</p>
+                    <p className="text-xs text-cyan-600">{item.product.brand.name}</p>
                     <Link
                       href={`/admin/products/${item.product.id}`}
                       className="font-medium hover:underline"
@@ -157,7 +157,7 @@ export default async function AdminOrderDetailPage({ params }: OrderDetailPagePr
                 <dd>
                   <Link
                     href={`/admin/members/${order.user.id}`}
-                    className="text-amber-600 hover:underline"
+                    className="text-cyan-600 hover:underline"
                   >
                     {order.user.id}
                   </Link>

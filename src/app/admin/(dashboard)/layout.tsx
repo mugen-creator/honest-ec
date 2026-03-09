@@ -41,7 +41,7 @@ export default async function AdminLayout({
         <div className="h-full px-4 flex items-center justify-between">
           <Link href="/admin" className="text-xl font-bold">
             Honest-Maison
-            <span className="text-amber-500 ml-2 text-sm font-normal">Admin</span>
+            <span className="text-cyan-500 ml-2 text-sm font-normal">Admin</span>
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-300">管理者</span>

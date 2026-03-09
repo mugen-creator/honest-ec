@@ -401,7 +401,7 @@ export default function CheckoutPage() {
                     />
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <MapPin className="w-4 h-4 text-amber-600" />
+                        <MapPin className="w-4 h-4 text-cyan-600" />
                         <span className="font-medium">登録済みの住所を使う</span>
                       </div>
                       <p className="text-sm text-gray-600">
@@ -579,7 +579,7 @@ export default function CheckoutPage() {
 
                       {isCardLoading && (
                         <div className="flex items-center justify-center py-6">
-                          <div className="animate-spin rounded-full h-5 w-5 border-2 border-amber-600 border-t-transparent"></div>
+                          <div className="animate-spin rounded-full h-5 w-5 border-2 border-cyan-600 border-t-transparent"></div>
                           <span className="ml-2 text-sm text-gray-500">読み込み中...</span>
                         </div>
                       )}
@@ -650,7 +650,7 @@ export default function CheckoutPage() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-amber-600">{product.brand.name}</p>
+                      <p className="text-xs text-cyan-600">{product.brand.name}</p>
                       <p className="text-sm line-clamp-1">{product.name}</p>
                       <p className="text-sm font-bold">
                         {formatPrice(product.price)}
@@ -716,7 +716,7 @@ export default function CheckoutPage() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-amber-600">{product.brand.name}</p>
+                      <p className="text-xs text-cyan-600">{product.brand.name}</p>
                       <p className="text-sm line-clamp-1">{product.name}</p>
                       <p className="text-sm font-bold">{formatPrice(product.price)}</p>
                     </div>

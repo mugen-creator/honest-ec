@@ -25,8 +25,8 @@ export default function AboutPage() {
       <section className="mb-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-amber-50 rounded-full">
-              <Shield className="w-8 h-8 text-amber-600" />
+            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-cyan-50 rounded-full">
+              <Shield className="w-8 h-8 text-cyan-600" />
             </div>
             <h3 className="font-bold mb-2">正規品保証</h3>
             <p className="text-sm text-gray-600">
@@ -35,8 +35,8 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-amber-50 rounded-full">
-              <Award className="w-8 h-8 text-amber-600" />
+            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-cyan-50 rounded-full">
+              <Award className="w-8 h-8 text-cyan-600" />
             </div>
             <h3 className="font-bold mb-2">確かな実績</h3>
             <p className="text-sm text-gray-600">
@@ -45,8 +45,8 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-amber-50 rounded-full">
-              <Users className="w-8 h-8 text-amber-600" />
+            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-cyan-50 rounded-full">
+              <Users className="w-8 h-8 text-cyan-600" />
             </div>
             <h3 className="font-bold mb-2">充実のサポート</h3>
             <p className="text-sm text-gray-600">

@@ -22,7 +22,7 @@ function CheckoutCompleteContent() {
 
       {orderNumber && (
         <p className="text-lg font-medium mb-4">
-          注文番号: <span className="text-amber-600">{orderNumber}</span>
+          注文番号: <span className="text-cyan-600">{orderNumber}</span>
         </p>
       )}
 
@@ -33,9 +33,9 @@ function CheckoutCompleteContent() {
       </p>
 
       {isBankTransfer && (
-        <div className="bg-amber-50 border border-amber-200 p-6 mb-8 text-left">
+        <div className="bg-cyan-50 border border-amber-200 p-6 mb-8 text-left">
           <h2 className="font-bold mb-4 text-amber-800">お振込先</h2>
-          <p className="text-sm text-amber-700 mb-4">
+          <p className="text-sm text-cyan-700 mb-4">
             下記口座へ7日以内にお振込みください。
             <br />
             ご入金確認後、商品を発送いたします。
@@ -62,7 +62,7 @@ function CheckoutCompleteContent() {
               <dd className="font-medium">ド）オネスト</dd>
             </div>
           </dl>
-          <p className="text-xs text-amber-600 mt-4">
+          <p className="text-xs text-cyan-600 mt-4">
             ※ 振込手数料はお客様のご負担となります
           </p>
         </div>

@@ -81,7 +81,7 @@ export default async function AdminMemberDetailPage({
                 <span
                   className={`px-2 py-1 text-xs rounded-full ${
                     member.role === "ADMIN"
-                      ? "bg-amber-100 text-amber-800"
+                      ? "bg-cyan-100 text-amber-800"
                       : "bg-gray-100 text-gray-800"
                   }`}
                 >
@@ -136,7 +136,7 @@ export default async function AdminMemberDetailPage({
                       <div>
                         <Link
                           href={`/admin/orders/${order.id}`}
-                          className="font-medium text-amber-600 hover:underline"
+                          className="font-medium text-cyan-600 hover:underline"
                         >
                           {order.orderNumber}
                         </Link>

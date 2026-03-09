@@ -13,7 +13,7 @@ export default function GuidePage() {
         {/* お買い物の流れ */}
         <section>
           <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-6 flex items-center gap-2">
-            <Shield className="w-6 h-6 text-amber-600" />
+            <Shield className="w-6 h-6 text-cyan-600" />
             お買い物の流れ
           </h2>
           <ol className="space-y-4">
@@ -82,7 +82,7 @@ export default function GuidePage() {
         {/* お支払い方法 */}
         <section>
           <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-6 flex items-center gap-2">
-            <CreditCard className="w-6 h-6 text-amber-600" />
+            <CreditCard className="w-6 h-6 text-cyan-600" />
             お支払い方法
           </h2>
           <div className="space-y-4">
@@ -114,7 +114,7 @@ export default function GuidePage() {
         {/* 配送について */}
         <section>
           <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-6 flex items-center gap-2">
-            <Truck className="w-6 h-6 text-amber-600" />
+            <Truck className="w-6 h-6 text-cyan-600" />
             配送について
           </h2>
           <div className="space-y-4">
@@ -148,7 +148,7 @@ export default function GuidePage() {
         {/* お問い合わせ */}
         <section>
           <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-6 flex items-center gap-2">
-            <MessageSquare className="w-6 h-6 text-amber-600" />
+            <MessageSquare className="w-6 h-6 text-cyan-600" />
             お問い合わせ
           </h2>
           <div className="bg-gray-50 p-6 rounded-lg">

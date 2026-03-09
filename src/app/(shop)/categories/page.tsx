@@ -43,13 +43,13 @@ export default async function CategoriesPage() {
             href={`/products?category=${category.slug}`}
             className="group relative border border-gray-200 p-8 hover:border-black transition-colors"
           >
-            <h2 className="font-serif-jp font-medium text-xl tracking-wide group-hover:text-amber-600 transition-colors">
+            <h2 className="font-serif-jp font-medium text-xl tracking-wide group-hover:text-cyan-600 transition-colors">
               {category.name}
             </h2>
             <p className="text-sm text-gray-500 mt-2">
               {category._count.products}点の商品
             </p>
-            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-2xl text-gray-300 group-hover:text-amber-600 transition-colors">
+            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-2xl text-gray-300 group-hover:text-cyan-600 transition-colors">
               →
             </span>
           </Link>

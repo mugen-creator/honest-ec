@@ -21,9 +21,9 @@ export function ProductCard({ product, rank }: ProductCardProps) {
           {rank && (
             <span className={cn(
               "absolute top-3 left-3 z-10 w-8 h-8 flex items-center justify-center text-sm font-bold rounded-full",
-              rank === 1 ? "bg-amber-400 text-white" :
+              rank === 1 ? "bg-cyan-400 text-white" :
               rank === 2 ? "bg-gray-300 text-gray-700" :
-              rank === 3 ? "bg-amber-600 text-white" :
+              rank === 3 ? "bg-cyan-600 text-white" :
               "bg-black text-white"
             )}>
               {rank}
@@ -71,8 +71,8 @@ export function ProductCard({ product, rank }: ProductCardProps) {
 
         {/* Info */}
         <div className="space-y-2">
-          <p className="text-xs text-amber-600 font-medium">{product.brand.name}</p>
-          <h3 className="text-sm font-medium leading-tight line-clamp-2 group-hover:text-amber-600 transition-colors">
+          <p className="text-xs text-cyan-600 font-medium">{product.brand.name}</p>
+          <h3 className="text-sm font-medium leading-tight line-clamp-2 group-hover:text-cyan-600 transition-colors">
             {product.name}
           </h3>
           <p className="text-lg font-bold">{formatPrice(product.price)}</p>

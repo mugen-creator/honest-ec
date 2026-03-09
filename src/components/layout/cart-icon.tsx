@@ -30,14 +30,14 @@ export function CartIcon() {
   return (
     <Link
       href="/cart"
-      className="p-2 hover:text-amber-600 transition-colors relative"
+      className="p-2 hover:text-cyan-600 transition-colors relative"
       aria-label="カート"
     >
       <ShoppingBag className={cn("w-5 h-5", bouncing && "animate-cart-bounce")} />
       {count > 0 && (
         <span
           className={cn(
-            "absolute -top-1 -right-1 w-5 h-5 bg-amber-600 text-white text-xs font-bold rounded-full flex items-center justify-center transition-transform",
+            "absolute -top-1 -right-1 w-5 h-5 bg-cyan-600 text-white text-xs font-bold rounded-full flex items-center justify-center transition-transform",
             bouncing && "scale-110"
           )}
         >

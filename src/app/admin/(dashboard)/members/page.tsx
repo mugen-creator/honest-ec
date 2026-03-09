@@ -100,7 +100,7 @@ export default async function AdminMembersPage() {
                     <span
                       className={`px-2 py-1 text-xs rounded-full ${
                         member.role === "ADMIN"
-                          ? "bg-amber-100 text-amber-800"
+                          ? "bg-cyan-100 text-amber-800"
                           : "bg-gray-100 text-gray-800"
                       }`}
                     >
@@ -110,7 +110,7 @@ export default async function AdminMembersPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-right">
                     <Link
                       href={`/admin/members/${member.id}`}
-                      className="text-amber-600 hover:text-amber-700"
+                      className="text-cyan-600 hover:text-cyan-700"
                     >
                       <Eye className="w-4 h-4 inline" />
                     </Link>

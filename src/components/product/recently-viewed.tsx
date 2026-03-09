@@ -54,8 +54,8 @@ export function RecentlyViewed({ excludeId, maxItems = 4 }: RecentlyViewedProps)
                 </div>
               )}
             </div>
-            <p className="text-xs text-amber-600 font-medium">{product.brandName}</p>
-            <p className="text-sm font-medium line-clamp-2 group-hover:text-amber-600 transition-colors">
+            <p className="text-xs text-cyan-600 font-medium">{product.brandName}</p>
+            <p className="text-sm font-medium line-clamp-2 group-hover:text-cyan-600 transition-colors">
               {product.name}
             </p>
             <p className="text-sm font-bold mt-1">{formatPrice(product.price)}</p>

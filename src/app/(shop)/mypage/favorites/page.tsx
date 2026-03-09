@@ -70,7 +70,7 @@ export default function FavoritesPage() {
           <p className="text-gray-500 mb-4">お気に入りに登録した商品がありません</p>
           <Link
             href="/products"
-            className="text-amber-600 hover:underline font-medium"
+            className="text-cyan-600 hover:underline font-medium"
           >
             商品を見る →
           </Link>

@@ -133,7 +133,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
           <div className="max-h-[60vh] overflow-y-auto">
             {isLoading && (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
+                <Loader2 className="w-6 h-6 animate-spin text-cyan-600" />
               </div>
             )}
 
@@ -164,7 +164,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-amber-600 font-medium">
+                      <p className="text-xs text-cyan-600 font-medium">
                         {product.brand.name}
                       </p>
                       <p className="font-medium truncate">{product.name}</p>
@@ -179,7 +179,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       router.push(`/products?search=${encodeURIComponent(query)}`);
                       onClose();
                     }}
-                    className="w-full py-3 text-center text-amber-600 hover:bg-gray-50 font-medium"
+                    className="w-full py-3 text-center text-cyan-600 hover:bg-gray-50 font-medium"
                   >
                     すべての結果を見る（{results.length}件）
                   </button>

@@ -47,7 +47,7 @@ export function ProductFilters({
         <SlidersHorizontal className="w-4 h-4" />
         フィルター
         {activeFiltersCount > 0 && (
-          <span className="bg-amber-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+          <span className="bg-cyan-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
             {activeFiltersCount}
           </span>
         )}
@@ -121,8 +121,8 @@ export function ProductFilters({
           <li>
             <button
               onClick={() => updateFilter("category", null)}
-              className={`text-sm hover:text-amber-600 transition-colors ${
-                !currentCategory ? "font-bold text-amber-600" : "text-gray-600"
+              className={`text-sm hover:text-cyan-600 transition-colors ${
+                !currentCategory ? "font-bold text-cyan-600" : "text-gray-600"
               }`}
             >
               すべて
@@ -132,9 +132,9 @@ export function ProductFilters({
             <li key={category.id}>
               <button
                 onClick={() => updateFilter("category", category.slug)}
-                className={`text-sm hover:text-amber-600 transition-colors ${
+                className={`text-sm hover:text-cyan-600 transition-colors ${
                   currentCategory === category.slug
-                    ? "font-bold text-amber-600"
+                    ? "font-bold text-cyan-600"
                     : "text-gray-600"
                 }`}
               >
@@ -154,8 +154,8 @@ export function ProductFilters({
           <li>
             <button
               onClick={() => updateFilter("brand", null)}
-              className={`text-sm hover:text-amber-600 transition-colors ${
-                !currentBrand ? "font-bold text-amber-600" : "text-gray-600"
+              className={`text-sm hover:text-cyan-600 transition-colors ${
+                !currentBrand ? "font-bold text-cyan-600" : "text-gray-600"
               }`}
             >
               すべて
@@ -165,9 +165,9 @@ export function ProductFilters({
             <li key={brand.id}>
               <button
                 onClick={() => updateFilter("brand", brand.slug)}
-                className={`text-sm hover:text-amber-600 transition-colors ${
+                className={`text-sm hover:text-cyan-600 transition-colors ${
                   currentBrand === brand.slug
-                    ? "font-bold text-amber-600"
+                    ? "font-bold text-cyan-600"
                     : "text-gray-600"
                 }`}
               >
@@ -246,7 +246,7 @@ function FilterContent({
               onClick={() => handleFilter("category", null)}
               className={cn(
                 "text-sm transition-colors",
-                !currentCategory ? "font-bold text-amber-600" : "text-gray-600 hover:text-amber-600"
+                !currentCategory ? "font-bold text-cyan-600" : "text-gray-600 hover:text-cyan-600"
               )}
             >
               すべて
@@ -259,8 +259,8 @@ function FilterContent({
                 className={cn(
                   "text-sm transition-colors",
                   currentCategory === category.slug
-                    ? "font-bold text-amber-600"
-                    : "text-gray-600 hover:text-amber-600"
+                    ? "font-bold text-cyan-600"
+                    : "text-gray-600 hover:text-cyan-600"
                 )}
               >
                 {category.name}
@@ -281,7 +281,7 @@ function FilterContent({
               onClick={() => handleFilter("brand", null)}
               className={cn(
                 "text-sm transition-colors",
-                !currentBrand ? "font-bold text-amber-600" : "text-gray-600 hover:text-amber-600"
+                !currentBrand ? "font-bold text-cyan-600" : "text-gray-600 hover:text-cyan-600"
               )}
             >
               すべて
@@ -294,8 +294,8 @@ function FilterContent({
                 className={cn(
                   "text-sm transition-colors",
                   currentBrand === brand.slug
-                    ? "font-bold text-amber-600"
-                    : "text-gray-600 hover:text-amber-600"
+                    ? "font-bold text-cyan-600"
+                    : "text-gray-600 hover:text-cyan-600"
                 )}
               >
                 {brand.name}
