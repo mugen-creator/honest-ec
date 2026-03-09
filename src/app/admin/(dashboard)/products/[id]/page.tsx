@@ -365,7 +365,7 @@ export default function EditProductPage({
               )}
             </label>
             <p className="text-xs text-gray-500 mt-2">
-              JPEG, PNG, WebP, GIF形式（5MB以下）
+              JPEG, PNG, WebP, GIF形式（10MB以下）
             </p>
           </div>
 

@@ -15,10 +15,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // ファイルサイズチェック (5MB以下)
-    if (file.size > 5 * 1024 * 1024) {
+    // ファイルサイズチェック (10MB以下)
+    if (file.size > 10 * 1024 * 1024) {
       return NextResponse.json(
-        { error: "ファイルサイズは5MB以下にしてください" },
+        { error: "ファイルサイズは10MB以下にしてください" },
         { status: 400 }
       );
     }
