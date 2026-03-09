@@ -46,6 +46,7 @@ export function BannerForm({ banner }: BannerFormProps) {
       const blob = await upload(file.name, file, {
         access: "public",
         handleUploadUrl: "/api/upload",
+        clientPayload: JSON.stringify({ addRandomSuffix: true }),
       });
 
       setImageUrl(blob.url);

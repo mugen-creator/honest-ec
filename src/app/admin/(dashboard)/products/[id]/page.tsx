@@ -127,6 +127,7 @@ export default function EditProductPage({
         const blob = await upload(file.name, file, {
           access: "public",
           handleUploadUrl: "/api/upload",
+          clientPayload: JSON.stringify({ addRandomSuffix: true }),
         });
 
         setImageUrls((prev) => [...prev, blob.url]);
