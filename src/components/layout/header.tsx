@@ -13,7 +13,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
       {/* Top bar */}
-      <div className="bg-black text-white text-center py-2 text-sm">
+      <div className="bg-cyan-600 text-white text-center py-2 text-sm">
         <p>送料無料 | 全品正規品保証</p>
       </div>
 

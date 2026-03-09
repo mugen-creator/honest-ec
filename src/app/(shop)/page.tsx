@@ -166,7 +166,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 lg:py-24 bg-black text-white">
+      <section className="py-16 lg:py-24 bg-cyan-800 text-white">
         <AnimatedSection className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-serif-jp text-2xl lg:text-3xl font-medium mb-4 tracking-wide">
             会員登録で特別なお知らせを
