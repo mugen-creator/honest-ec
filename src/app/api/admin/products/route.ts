@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendNewArrivalEmail } from "@/lib/email";
+import { broadcastNewArrivalToLine } from "@/lib/line";
 
 export const dynamic = "force-dynamic";
 
@@ -79,6 +80,13 @@ export async function POST(request: NextRequest) {
           )
         )
       ).catch((err) => console.error("New arrival email error:", err));
+
+      broadcastNewArrivalToLine({
+        name,
+        price,
+        imageUrl: product.images[0]?.url,
+        productId: product.id,
+      }).catch((err) => console.error("New arrival LINE error:", err));
     }
 
     return NextResponse.json({ product }, { status: 201 });
