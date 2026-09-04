@@ -62,13 +62,13 @@ export default function AboutPage() {
         <h2 className="font-serif-jp text-xl font-medium tracking-wide mb-4 border-b pb-2">会社情報</h2>
         <dl className="grid grid-cols-[120px,1fr] gap-y-4 text-sm">
           <dt className="text-gray-500">会社名</dt>
-          <dd>合同会社Honest</dd>
+          <dd>株式会社Honest</dd>
 
           <dt className="text-gray-500">所在地</dt>
           <dd>〒169-0072 東京都新宿区大久保2丁目19-15 サンフォレスト405号室</dd>
 
           <dt className="text-gray-500">代表者</dt>
-          <dd>代表社員 町田 強平</dd>
+          <dd>代表取締役 町田 強平</dd>
 
           <dt className="text-gray-500">設立</dt>
           <dd>2024年5月（令和6年5月）</dd>

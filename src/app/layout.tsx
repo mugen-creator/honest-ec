@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   description:
     "Honest-Maisonは、厳選された高級ブランド品・時計を誠実な価格でお届けするオンラインショップです。全品正規品保証・送料無料。",
   keywords: ["高級時計", "ブランド品", "中古時計", "ロレックス", "エルメス", "ルイヴィトン", "カルティエ", "オメガ"],
-  authors: [{ name: "合同会社Honest" }],
-  creator: "合同会社Honest",
-  publisher: "合同会社Honest",
+  authors: [{ name: "株式会社Honest" }],
+  creator: "株式会社Honest",
+  publisher: "株式会社Honest",
   formatDetection: {
     telephone: true,
     email: true,

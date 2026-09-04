@@ -16,7 +16,7 @@ export default function TokushohoPage() {
               <th className="text-left py-4 pr-4 w-1/3 align-top text-gray-500 font-normal">
                 販売業者
               </th>
-              <td className="py-4">合同会社Honest</td>
+              <td className="py-4">株式会社Honest</td>
             </tr>
             <tr className="border-b">
               <th className="text-left py-4 pr-4 align-top text-gray-500 font-normal">

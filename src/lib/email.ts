@@ -44,7 +44,7 @@ export async function sendWelcomeEmail(to: string, name: string) {
           </div>
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
-            合同会社Honest<br />
+            株式会社Honest<br />
             〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
@@ -91,7 +91,7 @@ export async function sendContactConfirmEmail(
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
-            合同会社Honest<br />
+            株式会社Honest<br />
             〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
@@ -195,7 +195,7 @@ export async function sendPasswordResetEmail(to: string, name: string, resetToke
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
-            合同会社Honest<br />
+            株式会社Honest<br />
             〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
@@ -233,7 +233,7 @@ export async function sendPasswordChangedEmail(to: string, name: string) {
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
-            合同会社Honest<br />
+            株式会社Honest<br />
             〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
@@ -320,7 +320,7 @@ export async function sendOrderConfirmEmail(
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
-            合同会社Honest<br />
+            株式会社Honest<br />
             〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
@@ -414,7 +414,7 @@ export async function sendOrderStatusEmail(
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
-            合同会社Honest<br />
+            株式会社Honest<br />
             〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
@@ -465,7 +465,7 @@ export async function sendRestockNotificationEmail(
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
-            合同会社Honest<br />
+            株式会社Honest<br />
             〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
@@ -520,7 +520,7 @@ export async function sendNewArrivalEmail(
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
-            合同会社Honest<br />
+            株式会社Honest<br />
             〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
@@ -570,7 +570,7 @@ export async function sendInquiryReplyEmail(
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
-            合同会社Honest<br />
+            株式会社Honest<br />
             〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
