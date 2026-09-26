@@ -182,10 +182,7 @@ export default function CheckoutPage() {
           cardRef.current = null;
         }
 
-        // カードの初期化（郵便番号欄を非表示）
-        const card = await paymentsRef.current.card({
-          postalCode: false,
-        });
+        const card = await paymentsRef.current.card();
 
         if (isMounted && cardContainerRef.current) {
           await card.attach(cardContainerRef.current);

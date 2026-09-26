@@ -71,9 +71,7 @@ export function SquareCardForm({ onCardTokenized, onError, isVisible }: SquareCa
           cardRef.current = null;
         }
 
-        const card = await payments.card({
-          postalCode: false,
-        });
+        const card = await payments.card();
 
         if (mounted && cardContainerRef.current) {
           await card.attach(cardContainerRef.current);
