@@ -65,7 +65,7 @@ export default function AboutPage() {
           <dd>株式会社Honest</dd>
 
           <dt className="text-gray-500">所在地</dt>
-          <dd>〒169-0072 東京都新宿区大久保2丁目19-15 サンフォレスト405号室</dd>
+          <dd>〒160-0022 東京都新宿区新宿2丁目1-5 パークサイドスクウェアー7階</dd>
 
           <dt className="text-gray-500">代表者</dt>
           <dd>代表取締役 町田 強平</dd>

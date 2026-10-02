@@ -28,7 +28,7 @@ export default function TokushohoPage() {
               <th className="text-left py-4 pr-4 align-top text-gray-500 font-normal">
                 所在地
               </th>
-              <td className="py-4">〒169-0072 東京都新宿区大久保2丁目19-15 サンフォレスト405号室</td>
+              <td className="py-4">〒160-0022 東京都新宿区新宿2丁目1-5 パークサイドスクウェアー7階</td>
             </tr>
             <tr className="border-b">
               <th className="text-left py-4 pr-4 align-top text-gray-500 font-normal">

@@ -45,7 +45,7 @@ export async function sendWelcomeEmail(to: string, name: string) {
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
             株式会社Honest<br />
-            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            〒160-0022 東京都新宿区新宿2-1-5 パークサイドスクウェアー7階<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
           </p>
@@ -92,7 +92,7 @@ export async function sendContactConfirmEmail(
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
             株式会社Honest<br />
-            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            〒160-0022 東京都新宿区新宿2-1-5 パークサイドスクウェアー7階<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
           </p>
@@ -196,7 +196,7 @@ export async function sendPasswordResetEmail(to: string, name: string, resetToke
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
             株式会社Honest<br />
-            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            〒160-0022 東京都新宿区新宿2-1-5 パークサイドスクウェアー7階<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
           </p>
@@ -234,7 +234,7 @@ export async function sendPasswordChangedEmail(to: string, name: string) {
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
             株式会社Honest<br />
-            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            〒160-0022 東京都新宿区新宿2-1-5 パークサイドスクウェアー7階<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
           </p>
@@ -321,7 +321,7 @@ export async function sendOrderConfirmEmail(
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
             株式会社Honest<br />
-            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            〒160-0022 東京都新宿区新宿2-1-5 パークサイドスクウェアー7階<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
           </p>
@@ -415,7 +415,7 @@ export async function sendOrderStatusEmail(
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
             株式会社Honest<br />
-            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            〒160-0022 東京都新宿区新宿2-1-5 パークサイドスクウェアー7階<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
           </p>
@@ -466,7 +466,7 @@ export async function sendRestockNotificationEmail(
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
             株式会社Honest<br />
-            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            〒160-0022 東京都新宿区新宿2-1-5 パークサイドスクウェアー7階<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
           </p>
@@ -521,7 +521,7 @@ export async function sendNewArrivalEmail(
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
             株式会社Honest<br />
-            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            〒160-0022 東京都新宿区新宿2-1-5 パークサイドスクウェアー7階<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
           </p>
@@ -571,7 +571,7 @@ export async function sendInquiryReplyEmail(
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
           <p style="font-size: 12px; color: #666;">
             株式会社Honest<br />
-            〒169-0072 東京都新宿区大久保2-19-15 サンフォレスト405号室<br />
+            〒160-0022 東京都新宿区新宿2-1-5 パークサイドスクウェアー7階<br />
             TEL: 03-4500-3763<br />
             E-mail: info@maison.k-honest.com
           </p>
